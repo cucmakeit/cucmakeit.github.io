@@ -144,6 +144,97 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
     <header>
       
         <div class="icon depth"></div>
+        <time class="depth" datetime="2014-11-13T12:21:22.000Z"><a href="#">Nov 13 2014</a></time>
+      
+      
+  
+    <h1 class="title depth"><a href="/2014/11/13/Promise之回调金字塔篇/">Promise之回调金字塔篇</a></h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>学习<code>Node.js</code>已经两周了，之前一直比较迷惑<code>promise</code>的使用，现在终于有所理解。这篇文章将主要以解决回调金字塔的角度来看待promise，至于控制权转换以及LEGO等更深入的角度将在后续文章中剖析。通过这篇文章将基本理解promise的用法。</p>
+<h2 id="什么是promise">什么是promise</h2>
+<p>promise是JavaScript实现优雅编程的一个非常不错的轻量级框架。该框架可以让你从杂乱的多重异步回调代码中解脱出来，并把精力集中到你的业务逻辑上。</p>
+<p>promise是为解决问题而生的，先看看下面这段代码：</p>
+<figure class="highlight JavaScript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">(data, cb)</span></span>{</div><div class="line">	fun1(data, <span class="function"><span class="keyword">function</span><span class="params">(err, data)</span></span>{</div><div class="line">		<span class="keyword">if</span>(!err){</div><div class="line">      		fun2(data, <span class="function"><span class="keyword">function</span><span class="params">(err, data)</span></span>{</div><div class="line">        		<span class="keyword">if</span>(!err){</div><div class="line">          			fun3(data, cb);</div><div class="line">        		}<span class="keyword">else</span>{</div><div class="line">          			cb(err);</div><div class="line">        		}</div><div class="line">      		});</div><div class="line">    	}<span class="keyword">else</span>{</div><div class="line">      		cb(err);</div><div class="line">    	}</div><div class="line">	});</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>这是一段非常恐怖的代码，里面有很多层的回调函数嵌套调用，我一看到这样的代码就会头疼，不仅丑陋而且很难维护。</p>
+<p><code>callback</code>是JavaScript中实现异步最简单常用的方式，但是这种方式不仅带来了上述令人头疼的回调金字塔的问题，而且牺牲了控制流，同时也不方便在外部捕获异常。</p>
+<p><code>promise</code>的出现就是为了解决上述问题.promise是一个标准，它描述了异步调用的返回结果，包括正确返回结果和错误处理。需要注意的是，promise只是一种编程方式的变化，无须在底层改变。其详细说明文档可参考<a href="https://promisesaplus.com/" target="_blank" rel="external">Promise/A+</a>。</p>
+<p>CommonJS规范中提到了多种promise的实现，如 Q 、 bluebird 和 Deferred ，接下来将以使用较多的<code>Q</code>，以及我现在用的比较多的<code>LeanCloud</code>中promise的实现为例来介绍一下promise在nodejs中的实现及使用。</p>
+<p>先来耐心看一下promise是如何实现的。</p>
+<h2 id="promise的实现">promise的实现</h2>
+<p>Q的核心是一个promise对象的<code>then</code>方法，他接受两个回调方法，一个promise被定义之后有3种状态，pending（过渡状态），fullfilled（完成状态），rejected(错误状态)。一个promise只能是这三种状态种的一种。</p>
+<ul>
+<li>pending状态可以理解为promise还没有获得确定值，就相当于一个任务还没有完成。</li>
+<li>fullfilled状态可以理解为完成并返回结果。这时then(onFullfilled, onRejected)的onFullfilled方法会被调用。</li>
+<li>rejected状态可以理解为错误，并结束，返回错误。这时then(onFullfilled, onRejected)的onRejected方法会被调用。</li>
+</ul>
+<p>下面来尝试封装promise的API：<br>先来看我学习的时候从别人的博客上看到的一个很好的例子，在这个例子中，先按照传统的callback写法来读取一个json文本，然后将其解析成javascript对象，最后将这个对象修改并保存。</p>
+<figure class="highlight JavaScript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">fs.readFile(<span class="string">'example.json'</span>, <span class="function"><span class="keyword">function</span><span class="params">(err, data)</span></span>{</div><div class="line">  <span class="keyword">if</span>(err) {</div><div class="line">    <span class="built_in">console</span>.log(err):</div><div class="line">  } <span class="keyword">else</span> {</div><div class="line">    <span class="keyword">try</span> {</div><div class="line">      <span class="keyword">var</span> obj = <span class="built_in">JSON</span>.parse(data);</div><div class="line">      obj.prop = <span class="string">'something new'</span>;</div><div class="line">      fs.writeFile(<span class="string">'example.json'</span>, <span class="built_in">JSON</span>.stringify(obj), <span class="function"><span class="keyword">function</span><span class="params">(error)</span></span>{</div><div class="line">        <span class="keyword">if</span>(err) {</div><div class="line">          <span class="built_in">console</span>.log(error);</div><div class="line">        } <span class="keyword">else</span> {</div><div class="line">          <span class="built_in">console</span>.log(<span class="string">'success'</span>);</div><div class="line">        }</div><div class="line">      });</div><div class="line">    } <span class="keyword">catch</span>(e) {</div><div class="line">      <span class="built_in">console</span>.log(e);</div><div class="line">    }</div><div class="line">  }</div><div class="line">});</div></pre></td></tr></table></figure>
+
+<p>基本思路是利用Q的defer()方法，创建一个deferred对象。这个对象有两个关键方法resolve()和reject()。当resolve(value)执行之后，promise变成fullfilled状态，fullfilled的值即value。当reject(reason) 执行之后，promise变成rejected状态，reason会被传递到onRejected()方法。</p>
+<p>具体如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Q = require(<span class="string">'q'</span>);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span><span class="params">(callback)</span></span>{</div><div class="line">  <span class="keyword">var</span> deferred = Q.defer();</div><div class="line">  fs.readFile(<span class="string">'example.json'</span>, <span class="function"><span class="keyword">function</span><span class="params">(err, data)</span></span>{</div><div class="line">    <span class="keyword">if</span>(err){</div><div class="line">      deferred.reject(err);</div><div class="line">    } <span class="keyword">else</span> {</div><div class="line">      deferred.resolve(data);</div><div class="line">    }</div><div class="line">  });</div><div class="line">  <span class="keyword">return</span> deferred.promise.nodeify(<span class="keyword">callback</span>);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>需要注意的是，上面这个写法中依然使用了一个callback，这是为了使这个模板具有更多场景的兼容性，更一般的场景会是这样：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fun = <span class="function"><span class="keyword">function</span> <span class="params">(data)</span> </span>{</div><div class="line">    <span class="keyword">var</span> deferred = Q.defer();</div><div class="line">    deferred.resolve(<span class="string">"success, return data is: "</span> + data);</div><div class="line">    <span class="keyword">return</span> deferred.promise;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h2 id="promise的使用">promise的使用</h2>
+<h3 id="基本promise的使用">基本promise的使用</h3>
+<p>有了上面的封装之后就可以来尝试愉快地使用promise了，读取、修改并保存json的例子就可以这样写：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> promise = readFile();</div><div class="line">promise.then(<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{</div><div class="line">  <span class="keyword">var</span> obj = <span class="built_in">JSON</span>.parse(data);</div><div class="line">  obj.prop = <span class="string">'something new'</span>;</div><div class="line">  <span class="comment">// return a promise. so we can chain the then() method.</span></div><div class="line">  <span class="keyword">return</span> writeFile(<span class="built_in">JSON</span>.stringify(obj));</div><div class="line">  })</div><div class="line">  .then(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>);</div><div class="line">  }, <span class="function"><span class="keyword">function</span><span class="params">(err)</span></span>{</div><div class="line">    <span class="comment">// all error will fall down here.</span></div><div class="line">    <span class="built_in">console</span>.log(err);</div><div class="line">  });</div></pre></td></tr></table></figure>
+
+<p>是不是立即简洁明了多了？也更加符合我们的编程思维了吧。</p>
+<p>如果这个例子还不够明显，那最初那个令人头疼的回调金字塔的例子可能更明显：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">(data,cb)</span></span>{</div><div class="line"> fun1(<span class="string">"helloworld"</span>)</div><div class="line">     .<span class="keyword">then</span>(fun2)</div><div class="line">     .<span class="keyword">then</span>(fun3)</div><div class="line">     .done(<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{</div><div class="line">        cb(null,data);</div><div class="line">     },<span class="function"><span class="keyword">function</span><span class="params">(err)</span></span>{</div><div class="line">        cb(err);</div><div class="line">     });</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>天壤之别了吧。还可以看到的一点是，使用传统的回调函数方式的话，我们需要在每一个回调函数里判断是否有错误需要处理，这样会存在很多冗余代码，使用promise的话，可以使用done或者fail统一在一个函数中处理错误，这点确实很赞。</p>
+<h3 id="串行promise的使用">串行promise的使用</h3>
+<p>在你想要某一行数据做一系列的任务的时候，Promise链是很方便的, 每一个任务都等着前一个任务结束. 比如, 假设你想要删除你的blog上的所有comment：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">_.<span class="keyword">each</span>(commentList, <span class="function"><span class="keyword">function</span><span class="params">(comment)</span></span>{</div><div class="line">  promise = promise.then(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">	<span class="comment">// Return a promise that will be resolved when the delete is finished.</span></div><div class="line">    <span class="keyword">return</span> comment.destory();</div><div class="line">  });</div><div class="line">});</div></pre></td></tr></table></figure>
+
+<h3 id="并行promise的使用">并行promise的使用</h3>
+<p>如果你有几个异步方法，他们都返回promise，并且当这些方法都处理完之后，你才能进行下一步，Q提供了一个all()方法来解决这个问题。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Q.all([</div><div class="line">  readFile(<span class="string">'file1.json'</span>),</div><div class="line">  readFile(<span class="string">'file2.json'</span>)</div><div class="line">  ])</div><div class="line">  .then(<span class="function"><span class="keyword">function</span><span class="params">(dataArray)</span></span>{</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; dataArray.length; i++){</div><div class="line">      <span class="built_in">console</span>.log(dataArray[i]);</div><div class="line">    }</div><div class="line">  }, <span class="function"><span class="keyword">function</span><span class="params">(err)</span></span>{</div><div class="line">    <span class="built_in">console</span>.log(err);</div><div class="line">  });</div></pre></td></tr></table></figure>
+
+<p>当任意一个promise变成rejected状态的时候，all的promise会立即reject而不等其他的完成。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
         <time class="depth" datetime="2014-11-13T10:52:27.000Z"><a href="#">Nov 13 2014</a></time>
       
       
@@ -154,8 +245,7 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
     </header>
     <div class="entry depth">
       
-        <h1 id="MapReduce排序过程详解">MapReduce排序过程详解</h1>
-<p>Hadoop、Spark等分布式数据处理框架在宣传自己的性能时大都以排序效果来做比较，各种类别的Sort Benchmark已成为行业基准测试。之所以选择排序是因为排序的核心是shuffle操作，数据的传输会横跨集群中所有主机，Shuffle基本支持了所有的分布式数据处理负载。</p>
+        <p>Hadoop、Spark等分布式数据处理框架在宣传自己的性能时大都以排序效果来做比较，各种类别的Sort Benchmark已成为行业基准测试。之所以选择排序是因为排序的核心是shuffle操作，数据的传输会横跨集群中所有主机，Shuffle基本支持了所有的分布式数据处理负载。</p>
 <p>下面就来详细分析一下使用mapreduce实现排序的基本过程。先看一些准备知识。</p>
 <h2 id="MapReduce中的数据流动">MapReduce中的数据流动</h2>
 <ul>

@@ -154,8 +154,7 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
     </header>
     <div class="entry depth">
       
-        <h1 id="MapReduce排序过程详解">MapReduce排序过程详解</h1>
-<p>Hadoop、Spark等分布式数据处理框架在宣传自己的性能时大都以排序效果来做比较，各种类别的Sort Benchmark已成为行业基准测试。之所以选择排序是因为排序的核心是shuffle操作，数据的传输会横跨集群中所有主机，Shuffle基本支持了所有的分布式数据处理负载。</p>
+        <p>Hadoop、Spark等分布式数据处理框架在宣传自己的性能时大都以排序效果来做比较，各种类别的Sort Benchmark已成为行业基准测试。之所以选择排序是因为排序的核心是shuffle操作，数据的传输会横跨集群中所有主机，Shuffle基本支持了所有的分布式数据处理负载。</p>
 <p>下面就来详细分析一下使用mapreduce实现排序的基本过程。先看一些准备知识。</p>
 <h2 id="MapReduce中的数据流动">MapReduce中的数据流动</h2>
 <ul>
