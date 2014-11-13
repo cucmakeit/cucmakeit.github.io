@@ -10,13 +10,16 @@
   <link rel="apple-touch-startup-image" href="http://cristo.qiniudn.com/icon.jpg">
 
   
-  <title>Archives: 2014/11 | Cristo&#39;s blog</title>
+  <title>MapReduce排序过程详解 | Cristo&#39;s blog</title>
   <meta name="author" content="Cristo Cui">
+  
+  <meta name="description" content="MapReduce排序过程详解
+Hadoop、Spark等分布式数据处理框架在宣传自己的性能时大都以排序效果来做比较，各种类别的Sort Benchmark已成为行业基准测试。之所以选择排序是因为排序的核心是shuffle操作，数据的传输会横跨集群中所有主机，Shuffle基本支持了所有的分布式数据">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="MapReduce排序过程详解"/>
   <meta property="og:site_name" content="Cristo&#39;s blog"/>
 
   
@@ -121,12 +124,7 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
 </aside>
   <div id="content" class="inner">
     <p id="header-fix"></p>
-    <div id="main-col" class="alignright"><div id="wrapper">
-<h2 class="archive-title">2014/11</h2>
-
-
-  
-    <article class="post">
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
   
     <div class="gallery">
   <div class="photoset">
@@ -148,7 +146,7 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
       
       
   
-    <h1 class="title depth"><a href="/2014/11/13/MapReduce排序过程详解/">MapReduce排序过程详解</a></h1>
+    <h1 class="depth title">MapReduce排序过程详解</h1>
   
 
     </header>
@@ -208,6 +206,17 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
     <footer>
       
         
+  
+  <div class="categories">
+    <a href="/categories/Hadoop/">Hadoop</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/mapreduce/">mapreduce</a>, <a href="/tags/排序/">排序</a>
+  </div>
+
         
       
       <div class="clearfix"></div>
@@ -216,76 +225,6 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
 </article>
 
 
-
-  
-    <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon depth"></div>
-        <time class="depth" datetime="2014-11-06T05:59:24.000Z"><a href="#">Nov 6 2014</a></time>
-      
-      
-  
-    <h1 class="title depth"><a href="/2014/11/06/hello-world/">Hello World</a></h1>
-  
-
-    </header>
-    <div class="entry depth">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2>
-<h3 id="Create_a_new_post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-  
-
-  <nav id="pagination" class="titlelist">
-  
-  
-  <div class="clearfix"></div>
-</nav>
 
 </div></div>
     <div class="clearfix"></div>
