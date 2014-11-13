@@ -5,7 +5,7 @@
   src: url("font/fontawesome-webfont.eot?#iefix") format('embedded-opentype'), url("font/fontawesome-webfont.woff") format('woff'), url("font/fontawesome-webfont.ttf") format('truetype'), url("font/fontawesome-webfont.svg#FontAwesomeRegular") format('svg');
 }
 .depth {
-  color: #444;
+  color: #555;
 }
 * {
   margin: 0;
@@ -13,7 +13,7 @@
 }
 body {
   background: #f1f1f1;
-  color: #444;
+  color: #555;
   font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
   font-size: 14px;
   text-shadow: 0 0 1px transparent;
@@ -150,7 +150,7 @@ p {
   display: inline;
   position: relative;
   left: 20px;
-  color: #444;
+  color: #555;
   font-weight: normal;
   font-size: 2.5em;
   line-height: 1;
@@ -208,7 +208,7 @@ p {
   }
 }
 #header #main-nav .icon:hover {
-  color: #444;
+  color: #555;
 }
 #header #main-nav .github:before {
   content: "\f09b";
@@ -392,7 +392,7 @@ article header .icon {
   color: #696;
 }
 article header .icon:hover {
-  color: #444;
+  color: #555;
   text-decoration: none;
 }
 @media screen and (max-width: 600px) {
@@ -658,7 +658,7 @@ article footer .addthis iframe {
   margin-bottom: 50px;
 }
 #pagination a:hover {
-  background: #444;
+  background: #555;
   color: #f1f1f1;
   text-decoration: none;
   text-shadow: none;
@@ -785,7 +785,7 @@ article footer .addthis iframe {
   font-size: 30px;
 }
 #sidebar .icon:hover {
-  color: #444;
+  color: #555;
 }
 #sidebar .github:before {
   content: "\f09b";
@@ -877,7 +877,7 @@ article footer .addthis iframe {
   color: #999;
 }
 .html5 .search input:focus {
-  color: #444;
+  color: #555;
 }
 .html5 .tag small {
   margin-left: 15px;
