@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="http://cristo.qiniudn.com/icon.jpg">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="http://cristo.qiniudn.com/icon.jpg">
+
+  
+  <title>推荐 | Cristo&#39;s blog</title>
+  <meta name="author" content="Cristo Cui">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Cristo&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Cristo&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+
+
+</head>
+
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="http://cristo.qiniudn.com/icon.jpg" alt="Cristo Cui">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">Cristo&#39;s blog</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+      <a target="_blank" class="icon email" href="mailto:cucmakeit@gmail.com"></a>
+    
+    
+    
+      <a target="_blank" class="icon facebook" href="http://fb.com/ce.cui.56"></a> 
+    
+    
+    
+      <a target="_blank" class="icon github" href="http://github.com/cucmakeit"></a>
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon weibo" href="http://weibo.com/2150756497"></a>
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="http://cristo.qiniudn.com/icon.jpg" alt="Cristo Cui">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>Cristo Cui</h3>
+      <p>Hi! This is Cristo's tech utopia. I'm on the way...</p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+      <a target="_blank" class="icon email depth" href="mailto:cucmakeit@gmail.com"></a>
+    
+    
+    
+      <a target="_blank" class="icon facebook depth" href="http://fb.com/ce.cui.56"></a> 
+    
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/cucmakeit"></a>
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon weibo depth" href="http://weibo.com/2150756497"></a>
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="http://www.weibo.com/2150756497" class="html5"> Contact me</a> 
+  &copy; - 2014 Cristo Cui
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper">
+<h2 class="archive-title tag">推荐</h2>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2014-11-13T13:19:53.000Z"><a href="#">Nov 13 2014</a></time>
+      
+      
+  
+    <h1 class="title depth"><a href="/2014/11/13/修正余弦相似度与皮尔森相关系数/">修正余弦相似度与皮尔森相关系数</a></h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>在数据分析和数据挖掘过程中，通常需要比较个体之间的相似度，比较常用的三种度量方法分别是：余弦相似度、皮尔森相关系数和修正的余弦相似度。</p>
+<ul>
+<li>余弦相似度（Cosine Similarity）</li>
+</ul>
+<p>相比距离度量，余弦相似度更加注重两个向量在方向上的差异，而非距离或长度上。用户一项目评分矩阵可以看作是n维空间上的向量，余弦相似性度量方法是通过计算向量间的余弦夹角来度量用户间相似性的。设向量x和y分别表示用户X和用户Y在n维空间上的评分，则用基于协同过滤推荐算法研究X和Y之间的相似性公式为：</p>
+<p><img src="http://cristo.qiniudn.com/blog201411131.png" alt=""></p>
+<ul>
+<li>修正的余弦相似度（Adjusted Cosine Similarity、调整余弦相似度）</li>
+</ul>
+<p>余弦相似度未考虑到用户评分尺度问题，如在评分区间[1-5]的情况下，对用户X来说评分3以上就是自己喜欢的，而对于用户Y，评分4以上才是自己喜欢的。通过减去用户对项的平均评分，修正的余弦相似性度量方法改善了以上问题。计算公式为：</p>
+<p><img src="http://cristo.qiniudn.com/blog201411132.png" alt=""></p>
+<ul>
+<li>皮尔森相关系数（Pearson Correlation Coefficient）</li>
+</ul>
+<p>即相关分析中的相关系数r，分别对X和Y基于自身总体标准化后计算空间向量的余弦夹角。公式如下：</p>
+<p><img src="http://cristo.qiniudn.com/blog201411133.png" alt=""></p>
+<h2 id="比较">比较</h2>
+<p>需要注意的一点是修正的余弦相似度与皮尔森相关系数之间的细微差别。我之前也一直以为两个公式一样，只是意义上不同，但是仔细观察可以看到两者的分母是不同的：</p>
+<p>修正余弦相似度的分母中计算的是每个用户自己有过评分的所有项目；<br>皮尔森相关系数的分母中计算的是两个用户共同评过分的项目。</p>
+<p>两个公式的分子是相同的，需要针对两个用户共同评过分的项目，分别减去该用户的平均评分来得到相对分数。而每个用户的平均评分分别由每个用户自己所有评过分的项目计算得到。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+
+  <nav id="pagination" class="titlelist">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  <script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+console.log("这网站没彩蛋，不用找了……")
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46393541-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+<script src="/js/pangu.js"></script>
+<script>pangu.page_spacing();</script>
+
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+</html>
