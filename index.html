@@ -216,17 +216,17 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
 <li>余弦相似度（Cosine Similarity）</li>
 </ul>
 <p>相比距离度量，余弦相似度更加注重两个向量在方向上的差异，而非距离或长度上。用户一项目评分矩阵可以看作是n维空间上的向量，余弦相似性度量方法是通过计算向量间的余弦夹角来度量用户间相似性的。设向量x和y分别表示用户X和用户Y在n维空间上的评分，则用基于协同过滤推荐算法研究X和Y之间的相似性公式为：</p>
-<p><img s1c="http://cristo.qiniudn.com/blog201411131.png" alt=""></p>
+<p><img s1c="http://cristo.qiniudn.com/blog20120820135631351.png" alt=""></p>
 <ul>
 <li>修正的余弦相似度（Adjusted Cosine Similarity、调整余弦相似度）</li>
 </ul>
 <p>余弦相似度未考虑到用户评分尺度问题，如在评分区间[1-5]的情况下，对用户X来说评分3以上就是自己喜欢的，而对于用户Y，评分4以上才是自己喜欢的。通过减去用户对项的平均评分，修正的余弦相似性度量方法改善了以上问题。计算公式为：</p>
-<p><img s1c="http://cristo.qiniudn.com/blog201411132.png" alt=""></p>
+<p><img s1c="http://cristo.qiniudn.com/blog73de143cgc0ebf3ae7ced&amp;6901.png" alt=""></p>
 <ul>
 <li>皮尔森相关系数（Pearson Correlation Coefficient）</li>
 </ul>
 <p>即相关分析中的相关系数r，分别对X和Y基于自身总体标准化后计算空间向量的余弦夹角。公式如下：</p>
-<p><img s1c="http://cristo.qiniudn.com/blog201411133.png" alt=""></p>
+<p><img s1c="http://cristo.qiniudn.com/blog73de143cgc0ebfa3ce644&amp;6901.png" alt=""></p>
 <h2 id="比较">比较</h2>
 <p>需要注意的一点是修正的余弦相似度与皮尔森相关系数之间的细微差别。我之前也一直以为两个公式一样，只是意义上不同，但是仔细观察可以看到两者的分母是不同的：</p>
 <p>修正余弦相似度的分母中计算的是每个用户自己有过评分的所有项目；<br>皮尔森相关系数的分母中计算的是两个用户共同评过分的项目。</p>
