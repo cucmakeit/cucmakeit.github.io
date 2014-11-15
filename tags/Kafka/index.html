@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="http://cristo.qiniudn.com/icon.jpg">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="http://cristo.qiniudn.com/icon.jpg">
+
+  
+  <title>Kafka | Cristo&#39;s blog</title>
+  <meta name="author" content="Cristo Cui">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Cristo&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Cristo&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+
+
+</head>
+
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="http://cristo.qiniudn.com/icon.jpg" alt="Cristo Cui">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">Cristo&#39;s blog</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+      <a target="_blank" class="icon email" href="mailto:cucmakeit@gmail.com"></a>
+    
+    
+    
+      <a target="_blank" class="icon facebook" href="http://fb.com/ce.cui.56"></a> 
+    
+    
+    
+      <a target="_blank" class="icon github" href="http://github.com/cucmakeit"></a>
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon weibo" href="http://weibo.com/2150756497"></a>
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="http://cristo.qiniudn.com/icon.jpg" alt="Cristo Cui">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>Cristo Cui</h3>
+      <p>Hi! This is Cristo's tech utopia. I'm on the way...</p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+      <a target="_blank" class="icon email depth" href="mailto:cucmakeit@gmail.com"></a>
+    
+    
+    
+      <a target="_blank" class="icon facebook depth" href="http://fb.com/ce.cui.56"></a> 
+    
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/cucmakeit"></a>
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon weibo depth" href="http://weibo.com/2150756497"></a>
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="http://www.weibo.com/2150756497" class="html5"> Contact me</a> 
+  &copy; - 2014 Cristo Cui
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper">
+<h2 class="archive-title tag">Kafka</h2>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2014-11-15T07:58:40.000Z"><a href="#">Nov 15 2014</a></time>
+      
+      
+  
+    <h1 class="title depth"><a href="/2014/11/15/Kafka环境搭建与测试/">Kafka环境搭建与测试</a></h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>本文基于kafka 0.8.1。</p>
+<h2 id="准备工作">准备工作</h2>
+<ul>
+<li>安装java</li>
+<li>安装zookeeper（自行google）</li>
+</ul>
+<h2 id="下载与安装">下载与安装</h2>
+<h4 id="下载地址">下载地址</h4>
+<p><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz" target="_blank" rel="external">https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz</a><br><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz" target="_blank" rel="external">点此下载</a></p>
+<h4 id="安装与启动">安装与启动</h4>
+<ul>
+<li>解压</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>tar -xzf kafka_2.<span class="number">10</span>-<span class="number">0</span>.<span class="number">8.1</span>.<span class="number">1</span>.tgz</div><div class="line"><span class="variable">$ </span>cd kafka_2.<span class="number">10</span>-<span class="number">0</span>.<span class="number">8.1</span>.<span class="number">1</span>.tgz</div></pre></td></tr></table></figure>
+
+<ul>
+<li>配置</li>
+<li>进入kafka安装目录编辑server配置文件</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="keyword">vim</span> config/server.properties</div></pre></td></tr></table></figure>
+
+<p>修改以下配置：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">port=</span><span class="number">9092</span></div><div class="line">zookeeper.<span class="variable">connect=</span>yourIP:<span class="number">2181</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>启动zookeeper</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nohup bin/zookeeper-server-start.<span class="keyword">sh</span> config/zookeeper.properties &</div></pre></td></tr></table></figure>
+
+<ul>
+<li>启动kafka</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bin/kafka-server-<span class="operator"><span class="keyword">start</span>.sh config/<span class="keyword">server</span>.properties</span></div></pre></td></tr></table></figure>
+
+<p>如果报错</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Unrecognized VM option <span class="string">'+UseCompressedOops'</span></div><div class="line">Could <span class="operator">not</span> <span class="built_in">create</span> <span class="operator">the</span> Java virtual machine.</div></pre></td></tr></table></figure>
+
+<p>这是因为kafka用了很多用来优化运行的jvm参数，而你安装的 jdk所带的jvm不一定支持这些参数，比如： -XX:+UseCompressedOops ，在bin/kafka-run-class.sh中移除相关参数即可。</p>
+<p>如果报错</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SLF4J: Failed <span class="keyword">to</span> load <span class="keyword">class</span> <span class="string">"org.slf4j.impl.StaticLoggerBinder"</span>.</div></pre></td></tr></table></figure>
+
+<p>下载slf4j <a href="http://www.slf4j.org/dist/slf4j-1.7.6.zip" target="_blank" rel="external">http://www.slf4j.org/dist/slf4j-1.7.6.zip</a></p>
+<p>解压<br>unzip slf4j-1.7.6.zip</p>
+<p>把slf4j-nop-1.7.6.jar 包复制到kafka libs目录下面<br>cd  slf4j-1.7.6<br>cp slf4j-nop-1.7.6.jar  your kafka path/libs/</p>
+<ul>
+<li>创建topic</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">$</span> <span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">topics</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">create</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">replication</span><span class="literal">-</span><span class="comment">factor</span> <span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">partitions</span> <span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>验证topic是否创建成功</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bin/kafka-topics.<span class="keyword">sh</span> --<span class="keyword">list</span> --zookeeper localhos<span class="variable">t:2181</span></div></pre></td></tr></table></figure>
+
+<p>显示 test</p>
+<ul>
+<li>在console模式下启动一个producer,发送消息</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bin/kafka-console-producer.<span class="keyword">sh</span> --broker-<span class="keyword">list</span> localhos<span class="variable">t:9092</span> --topic test</div></pre></td></tr></table></figure>
+
+<p>键入信息，比如</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="title">message1</span></div><div class="line">message2</div></pre></td></tr></table></figure>
+
+<ul>
+<li>在console模式下启动一个consumer，接收信息</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">$</span> <span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">console</span><span class="literal">-</span><span class="comment">consumer</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">from</span><span class="literal">-</span><span class="comment">beginning</span></div></pre></td></tr></table></figure>
+
+<h2 id="配置3个broker节点的kafka集群">配置3个broker节点的kafka集群</h2>
+<ul>
+<li>在kafka的config目录下配置多个server.properties</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cp config/<span class="keyword">server</span>.properties config/<span class="keyword">server</span>-<span class="number">1.</span>properties</div><div class="line">$ cp config/<span class="keyword">server</span>.properties config/<span class="keyword">server</span>-<span class="number">2.</span>properties</div></pre></td></tr></table></figure>
+
+<ul>
+<li>分别编辑上述两个文件，配置属性</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">config/server-<span class="number">1</span>.properties:</div><div class="line">    broker.<span class="variable">id=</span><span class="number">1</span></div><div class="line">    <span class="variable">port=</span><span class="number">9093</span></div><div class="line">    log.<span class="variable">dir=</span>/tmp/kafka-logs-<span class="number">1</span></div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">config/server-<span class="number">2</span>.properties:</div><div class="line">    broker.<span class="variable">id=</span><span class="number">2</span></div><div class="line">    <span class="variable">port=</span><span class="number">9094</span></div><div class="line">    log.<span class="variable">dir=</span>/tmp/kafka-logs-<span class="number">2</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>启动服务</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ nohup bin/kafka-server-<span class="operator"><span class="keyword">start</span>.sh config/<span class="keyword">server</span>-<span class="number">1.</span>properties &</span></div><div class="line">$ nohup <span class="keyword">bin</span>/kafka-<span class="keyword">server</span>-<span class="keyword">start</span>.sh config/<span class="keyword">server</span>-<span class="number">2.</span>properties &</div></pre></td></tr></table></figure>
+
+<ul>
+<li>创建topic</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">$</span> <span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">topics</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">create</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">replication</span><span class="literal">-</span><span class="comment">factor</span> <span class="comment">3</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">partitions</span> <span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">3</span><span class="literal">-</span><span class="comment">broker</span><span class="literal">-</span><span class="comment">test</span></div></pre></td></tr></table></figure>
+
+<p>查看topic时</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/kafka-topics.<span class="keyword">sh</span> --<span class="keyword">list</span> --zookeeper localhos<span class="variable">t:2181</span></div></pre></td></tr></table></figure>
+
+<p>可以看到已经创建的两个topic</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">3</span>-broker-<span class="keyword">test</span></div><div class="line"><span class="keyword">test</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>启动producer和consumer</li>
+</ul>
+<p>启动producer</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bin/kafka-console-producer.<span class="keyword">sh</span> --broker-<span class="keyword">list</span> localhos<span class="variable">t:9092</span> --topic <span class="number">3</span>-broker-test</div></pre></td></tr></table></figure>
+
+<p>输入信息：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="title">hello</span></div><div class="line">hello world</div><div class="line">hello gay</div></pre></td></tr></table></figure>
+
+<p>启动consumer</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">$</span> <span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">console</span><span class="literal">-</span><span class="comment">consumer</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">from</span><span class="literal">-</span><span class="comment">beginning</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">3</span><span class="literal">-</span><span class="comment">broker</span><span class="literal">-</span><span class="comment">test</span></div></pre></td></tr></table></figure>
+
+<p>收到信息</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="title">hello</span></div><div class="line">hello world</div><div class="line">hello gay</div></pre></td></tr></table></figure>
+
+<p>安装配置成功。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+
+  <nav id="pagination" class="titlelist">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  <script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+console.log("这网站没彩蛋，不用找了……")
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46393541-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+<script src="/js/pangu.js"></script>
+<script>pangu.page_spacing();</script>
+
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+</html>

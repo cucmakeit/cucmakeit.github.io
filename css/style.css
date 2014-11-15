@@ -5,15 +5,15 @@
   src: url("font/fontawesome-webfont.eot?#iefix") format('embedded-opentype'), url("font/fontawesome-webfont.woff") format('woff'), url("font/fontawesome-webfont.ttf") format('truetype'), url("font/fontawesome-webfont.svg#FontAwesomeRegular") format('svg');
 }
 .depth {
-  color: #300000;
+  color: #400000;
 }
 * {
   margin: 0;
   padding: 0;
 }
 body {
-  background: #f1f1f1;
-  color: #300000;
+  background: #fff;
+  color: #400000;
   font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
   font-size: 14px;
   text-shadow: 0 0 1px transparent;
@@ -150,7 +150,7 @@ p {
   display: inline;
   position: relative;
   left: 20px;
-  color: #300000;
+  color: #400000;
   font-weight: normal;
   font-size: 2.5em;
   line-height: 1;
@@ -208,7 +208,7 @@ p {
   }
 }
 #header #main-nav .icon:hover {
-  color: #300000;
+  color: #400000;
 }
 #header #main-nav .github:before {
   content: "\f09b";
@@ -392,7 +392,7 @@ article header .icon {
   color: #696;
 }
 article header .icon:hover {
-  color: #300000;
+  color: #400000;
   text-decoration: none;
 }
 @media screen and (max-width: 600px) {
@@ -473,7 +473,7 @@ article .entry pre {
   font-family: Monaco, Menlo, Consolas, Courier New, monospace;
 }
 article .entry code {
-  background: #f1f1f1;
+  background: #fff;
   color: #666;
   padding: 0 5px;
   margin: 0 2px;
@@ -483,7 +483,7 @@ article .entry code {
   border-radius: 3px;
 }
 article .entry pre {
-  background: #f1f1f1;
+  background: #fff;
   border: 1px solid #ccc;
   margin-top: 15px;
   overflow: auto;
@@ -639,7 +639,7 @@ article footer .addthis iframe {
 }
 #comment {
   padding: 20px;
-  background: #f1f1f1;
+  background: #fff;
   -webkit-box-shadow: 1px 2px 3px #ececec;
   box-shadow: 1px 2px 3px #ececec;
   margin-bottom: 50px;
@@ -658,8 +658,8 @@ article footer .addthis iframe {
   margin-bottom: 50px;
 }
 #pagination a:hover {
-  background: #300000;
-  color: #f1f1f1;
+  background: #400000;
+  color: #fff;
   text-decoration: none;
   text-shadow: none;
 }
@@ -785,7 +785,7 @@ article footer .addthis iframe {
   font-size: 30px;
 }
 #sidebar .icon:hover {
-  color: #300000;
+  color: #400000;
 }
 #sidebar .github:before {
   content: "\f09b";
@@ -877,7 +877,7 @@ article footer .addthis iframe {
   color: #999;
 }
 .html5 .search input:focus {
-  color: #300000;
+  color: #400000;
 }
 .html5 .tag small {
   margin-left: 15px;
@@ -918,7 +918,7 @@ margin-bottom 50px {
   text-shadow: 0 0 1px #fff;
 }
 .entry .gist {
-  background: #f1f1f1;
+  background: #fff;
   border: 1px solid #ccc;
   margin-top: 15px;
   padding: 5px;
@@ -961,7 +961,7 @@ margin-bottom 50px {
   color: #063;
 }
 figure.highlight {
-  background: #f1f1f1;
+  background: #fff;
   border: 1px solid #ccc;
   margin-top: 15px;
   padding: 7px 15px;

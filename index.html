@@ -127,6 +127,20 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
       <div class="post-content animated fadeIn">
         <header>
             
+              <div class="icon depth"><a href="/2014/11/15/Kafka环境搭建与测试/"> </a></div>
+              <h2 class="depth title" ><a class="animated" href="/2014/11/15/Kafka环境搭建与测试/">Kafka环境搭建与测试</a></h2>
+            
+            <time class="time title depth" datetime="2014-11-15T07:58:40.000Z">Nov 15 2014</time>
+          </header>
+      </div>
+    </article>
+  </div>
+
+  <div class="archive titlelist">
+    <article class="post">
+      <div class="post-content animated fadeIn">
+        <header>
+            
               <div class="icon depth"><a href="/2014/11/13/修正余弦相似度与皮尔森相关系数/"> </a></div>
               <h2 class="depth title" ><a class="animated" href="/2014/11/13/修正余弦相似度与皮尔森相关系数/">修正余弦相似度与皮尔森相关系数</a></h2>
             
@@ -178,6 +192,183 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
     </article>
   </div>
 
+
+
+
+  <div class="animated fadeIn" idplus="Kafka环境搭建与测试" style="display: none;">
+    <div idplusp="Kafka环境搭建与测试">
+      <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img s1c="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2014-11-15T07:58:40.000Z"><a href="#">Nov 15 2014</a></time>
+      
+      
+  
+    <h1 class="depth title">Kafka环境搭建与测试</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>本文基于kafka 0.8.1。</p>
+<h2 id="准备工作">准备工作</h2>
+<ul>
+<li>安装java</li>
+<li>安装zookeeper（自行google）</li>
+</ul>
+<h2 id="下载与安装">下载与安装</h2>
+<h4 id="下载地址">下载地址</h4>
+<p><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz" target="_blank" rel="external">https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz</a><br><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz" target="_blank" rel="external">点此下载</a></p>
+<h4 id="安装与启动">安装与启动</h4>
+<ul>
+<li>解压</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>tar -xzf kafka_2.<span class="number">10</span>-<span class="number">0</span>.<span class="number">8.1</span>.<span class="number">1</span>.tgz</div><div class="line"><span class="variable">$ </span>cd kafka_2.<span class="number">10</span>-<span class="number">0</span>.<span class="number">8.1</span>.<span class="number">1</span>.tgz</div></pre></td></tr></table></figure>
+
+<ul>
+<li>配置</li>
+<li>进入kafka安装目录编辑server配置文件</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="keyword">vim</span> config/server.properties</div></pre></td></tr></table></figure>
+
+<p>修改以下配置：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">port=</span><span class="number">9092</span></div><div class="line">zookeeper.<span class="variable">connect=</span>yourIP:<span class="number">2181</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>启动zookeeper</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nohup bin/zookeeper-server-start.<span class="keyword">sh</span> config/zookeeper.properties &</div></pre></td></tr></table></figure>
+
+<ul>
+<li>启动kafka</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bin/kafka-server-<span class="operator"><span class="keyword">start</span>.sh config/<span class="keyword">server</span>.properties</span></div></pre></td></tr></table></figure>
+
+<p>如果报错</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Unrecognized VM option <span class="string">'+UseCompressedOops'</span></div><div class="line">Could <span class="operator">not</span> <span class="built_in">create</span> <span class="operator">the</span> Java virtual machine.</div></pre></td></tr></table></figure>
+
+<p>这是因为kafka用了很多用来优化运行的jvm参数，而你安装的 jdk所带的jvm不一定支持这些参数，比如： -XX:+UseCompressedOops ，在bin/kafka-run-class.sh中移除相关参数即可。</p>
+<p>如果报错</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SLF4J: Failed <span class="keyword">to</span> load <span class="keyword">class</span> <span class="string">"org.slf4j.impl.StaticLoggerBinder"</span>.</div></pre></td></tr></table></figure>
+
+<p>下载slf4j <a href="http://www.slf4j.org/dist/slf4j-1.7.6.zip" target="_blank" rel="external">http://www.slf4j.org/dist/slf4j-1.7.6.zip</a></p>
+<p>解压<br>unzip slf4j-1.7.6.zip</p>
+<p>把slf4j-nop-1.7.6.jar 包复制到kafka libs目录下面<br>cd  slf4j-1.7.6<br>cp slf4j-nop-1.7.6.jar  your kafka path/libs/</p>
+<ul>
+<li>创建topic</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">$</span> <span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">topics</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">create</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">replication</span><span class="literal">-</span><span class="comment">factor</span> <span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">partitions</span> <span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>验证topic是否创建成功</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bin/kafka-topics.<span class="keyword">sh</span> --<span class="keyword">list</span> --zookeeper localhos<span class="variable">t:2181</span></div></pre></td></tr></table></figure>
+
+<p>显示 test</p>
+<ul>
+<li>在console模式下启动一个producer,发送消息</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bin/kafka-console-producer.<span class="keyword">sh</span> --broker-<span class="keyword">list</span> localhos<span class="variable">t:9092</span> --topic test</div></pre></td></tr></table></figure>
+
+<p>键入信息，比如</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="title">message1</span></div><div class="line">message2</div></pre></td></tr></table></figure>
+
+<ul>
+<li>在console模式下启动一个consumer，接收信息</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">$</span> <span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">console</span><span class="literal">-</span><span class="comment">consumer</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">from</span><span class="literal">-</span><span class="comment">beginning</span></div></pre></td></tr></table></figure>
+
+<h2 id="配置3个broker节点的kafka集群">配置3个broker节点的kafka集群</h2>
+<ul>
+<li>在kafka的config目录下配置多个server.properties</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cp config/<span class="keyword">server</span>.properties config/<span class="keyword">server</span>-<span class="number">1.</span>properties</div><div class="line">$ cp config/<span class="keyword">server</span>.properties config/<span class="keyword">server</span>-<span class="number">2.</span>properties</div></pre></td></tr></table></figure>
+
+<ul>
+<li>分别编辑上述两个文件，配置属性</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">config/server-<span class="number">1</span>.properties:</div><div class="line">    broker.<span class="variable">id=</span><span class="number">1</span></div><div class="line">    <span class="variable">port=</span><span class="number">9093</span></div><div class="line">    log.<span class="variable">dir=</span>/tmp/kafka-logs-<span class="number">1</span></div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">config/server-<span class="number">2</span>.properties:</div><div class="line">    broker.<span class="variable">id=</span><span class="number">2</span></div><div class="line">    <span class="variable">port=</span><span class="number">9094</span></div><div class="line">    log.<span class="variable">dir=</span>/tmp/kafka-logs-<span class="number">2</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>启动服务</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ nohup bin/kafka-server-<span class="operator"><span class="keyword">start</span>.sh config/<span class="keyword">server</span>-<span class="number">1.</span>properties &</span></div><div class="line">$ nohup <span class="keyword">bin</span>/kafka-<span class="keyword">server</span>-<span class="keyword">start</span>.sh config/<span class="keyword">server</span>-<span class="number">2.</span>properties &</div></pre></td></tr></table></figure>
+
+<ul>
+<li>创建topic</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">$</span> <span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">topics</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">create</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">replication</span><span class="literal">-</span><span class="comment">factor</span> <span class="comment">3</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">partitions</span> <span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">3</span><span class="literal">-</span><span class="comment">broker</span><span class="literal">-</span><span class="comment">test</span></div></pre></td></tr></table></figure>
+
+<p>查看topic时</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/kafka-topics.<span class="keyword">sh</span> --<span class="keyword">list</span> --zookeeper localhos<span class="variable">t:2181</span></div></pre></td></tr></table></figure>
+
+<p>可以看到已经创建的两个topic</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">3</span>-broker-<span class="keyword">test</span></div><div class="line"><span class="keyword">test</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>启动producer和consumer</li>
+</ul>
+<p>启动producer</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bin/kafka-console-producer.<span class="keyword">sh</span> --broker-<span class="keyword">list</span> localhos<span class="variable">t:9092</span> --topic <span class="number">3</span>-broker-test</div></pre></td></tr></table></figure>
+
+<p>输入信息：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="title">hello</span></div><div class="line">hello world</div><div class="line">hello gay</div></pre></td></tr></table></figure>
+
+<p>启动consumer</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">$</span> <span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">console</span><span class="literal">-</span><span class="comment">consumer</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">from</span><span class="literal">-</span><span class="comment">beginning</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">3</span><span class="literal">-</span><span class="comment">broker</span><span class="literal">-</span><span class="comment">test</span></div></pre></td></tr></table></figure>
+
+<p>收到信息</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="title">hello</span></div><div class="line">hello world</div><div class="line">hello gay</div></pre></td></tr></table></figure>
+
+<p>安装配置成功。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Kafka/">Kafka</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Kafka/">Kafka</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+      
+    </div>
+  </div>
 
 
 
@@ -556,6 +747,8 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
 <div id="myCanvasContainer" class="animated fadeIn" style="display: none;">
  <canvas width="500" height="500" id="myCanvas">
  <ul>
+  
+    <li><h2><a href="/tags/Kafka/">Kafka</a></h2></li>
   
     <li><h2><a href="/tags/mapreduce/">mapreduce</a></h2></li>
   
