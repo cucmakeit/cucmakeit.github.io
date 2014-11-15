@@ -127,6 +127,20 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
       <div class="post-content animated fadeIn">
         <header>
             
+              <div class="icon depth"><a href="/2014/11/16/Kafka-SparkStreaming-实时流处理实践/"> </a></div>
+              <h2 class="depth title" ><a class="animated" href="/2014/11/16/Kafka-SparkStreaming-实时流处理实践/">Kafka+SparkStreaming--实时流处理实践</a></h2>
+            
+            <time class="time title depth" datetime="2014-11-15T19:05:15.000Z">Nov 16 2014</time>
+          </header>
+      </div>
+    </article>
+  </div>
+
+  <div class="archive titlelist">
+    <article class="post">
+      <div class="post-content animated fadeIn">
+        <header>
+            
               <div class="icon depth"><a href="/2014/11/15/Kafka环境搭建与测试/"> </a></div>
               <h2 class="depth title" ><a class="animated" href="/2014/11/15/Kafka环境搭建与测试/">Kafka环境搭建与测试</a></h2>
             
@@ -195,6 +209,138 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
 
 
 
+  <div class="animated fadeIn" idplus="Kafka+SparkStreaming--实时流处理实践" style="display: none;">
+    <div idplusp="Kafka+SparkStreaming--实时流处理实践">
+      <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img s1c="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2014-11-15T19:05:15.000Z"><a href="#">Nov 16 2014</a></time>
+      
+      
+  
+    <h1 class="depth title">Kafka+SparkStreaming--实时流处理实践</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>kafka 最初由 Linkedin 公司开发，使用 Scala 语言编写，是一个分布式、分区、多副本、多订阅者的日志系统。 Spark Streaming 是大规模流式数据处理的新贵，将流式计算分解成一系列短小的批处理作业。由于 SparkStreaming 对网络流方式的支持， SparkStreaming+Kafka 的日志流式处理方式已越来越普遍。本文将讲解如何利用两者搭建出一套实时流处理系统，并详细列出实际搭建过程中遇到的问题及解决方式。</p>
+<h2 id="准备工作">准备工作</h2>
+<ul>
+<li>安装 zookeeper</li>
+<li>安装 kafka</li>
+<li>安装 spark<br>kafka 集群的搭建及配置见上一篇文章： <a href="http://cucmakeit.github.io/2014/11/15/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%B5%8B%E8%AF%95/" target="_blank" rel="external">Kafka 环境搭建与测试</a></li>
+</ul>
+<h2 id="启动集群">启动集群</h2>
+<ul>
+<li>启动 zookeeper</li>
+</ul>
+<p>进入 <code>zookeeper HOME</code> 目录，执行 <code>$ bin/zkServer.sh start</code> 启动 zookeeper。</p>
+<ul>
+<li>启动 kafka server</li>
+</ul>
+<p>进入 <code>kafka HOME</code> 目录，执行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bin/kafka-server-<span class="operator"><span class="keyword">start</span>.sh config/<span class="keyword">server</span>.properties</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>创建 topic</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">$</span> <span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">topics</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">create</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">replication</span><span class="literal">-</span><span class="comment">factor</span> <span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">partitions</span> <span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">kafkaTest</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>检查 topic 是否创建成功</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bin/kafka-topics.<span class="keyword">sh</span> --<span class="keyword">list</span> --zookeeper localhos<span class="variable">t:2181</span></div></pre></td></tr></table></figure>
+
+<p>返回 <code>kafkaTest</code> ，正常。</p>
+<ul>
+<li>启动 kafka producer ，生产信息</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bin/kafka-console-producer.<span class="keyword">sh</span> --broker-<span class="keyword">list</span> localhos<span class="variable">t:9092</span> --topic kafkaTest</div></pre></td></tr></table></figure>
+
+<p>broker-list 是刚刚启动的 kafka server 的机器的配置，本文本机测试选择localhost，启动的server的端口配置为9092，如果启动了多个broker，则依次填写，例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bin/kafka-console-producer.<span class="keyword">sh</span> --broker-<span class="keyword">list</span> localhos<span class="variable">t:9092</span>,localhos<span class="variable">t:9093</span>,localhos<span class="variable">t:9094</span> --topic kafkaTest</div></pre></td></tr></table></figure>
+
+<ul>
+<li>启动 kafka consumer ，测试消费信息是否正常</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">$</span> <span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">console</span><span class="literal">-</span><span class="comment">consumer</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">10</span><span class="string">.</span><span class="comment">3</span><span class="string">.</span><span class="comment">242</span><span class="string">.</span><span class="comment">35:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">from</span><span class="literal">-</span><span class="comment">beginning</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">kafkaTest</span></div></pre></td></tr></table></figure>
+
+<p><img s1c="http://cristo.qiniudn.com/blogkafka-streaming-3.png" alt=""></p>
+<p>接收正常，接下来可以开始写 spark 应用程序了。</p>
+<h2 id="编写并调试_spark_程序">编写并调试 spark 程序</h2>
+<p>spark 官方提供了与 kafka 结合的 demo ，具体内容可见 <a href="https://github.com/apache/spark/blob/master/examples/scala-2.10/src/main/scala/org/apache/spark/examples/streaming/KafkaWordCount.scala" target="_blank" rel="external">https://github.com/apache/spark/blob/master/examples/scala-2.10/src/main/scala/org/apache/spark/examples/streaming/KafkaWordCount.scala</a></p>
+<p>本文为了联调测试方便，适当改写，同样来测试一个wordcount的例子。代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.buptwtist.cristo</div><div class="line"><span class="keyword">import</span> java.util.Properties</div><div class="line"><span class="keyword">import</span> kafka.producer._</div><div class="line"><span class="keyword">import</span> org.apache.spark.streaming._</div><div class="line"><span class="keyword">import</span> org.apache.spark.streaming.StreamingContext._</div><div class="line"><span class="keyword">import</span> org.apache.spark.streaming.kafka._</div><div class="line"><span class="keyword">import</span> org.apache.spark.SparkConf</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">object</span> <span class="title">KafkaWordCount</span> </span>{</div><div class="line">    <span class="keyword">def</span> main(args: Array[String]) {</div><div class="line">  <span class="keyword">val</span> zkQuorum = <span class="string">"10.3.242.35:2181"</span></div><div class="line">  <span class="keyword">val</span> group = <span class="string">"test-consumer-group"</span></div><div class="line">  <span class="keyword">val</span> topics = <span class="string">"kafkaTest"</span></div><div class="line">  <span class="keyword">val</span> numThreads = <span class="number">2</span></div><div class="line"></div><div class="line">  <span class="keyword">val</span> sparkConf = <span class="keyword">new</span> SparkConf().setAppName(<span class="string">"KafkaWordCount"</span>).setMaster(<span class="string">"local[2]"</span>)</div><div class="line">  <span class="keyword">val</span> ssc =  <span class="keyword">new</span> StreamingContext(sparkConf, Seconds(<span class="number">5</span>))</div><div class="line">  ssc.checkpoint(<span class="string">"checkpoint"</span>)</div><div class="line"></div><div class="line">  <span class="keyword">val</span> topicpMap = topics.split(<span class="string">","</span>).map((_,numThreads)).toMap</div><div class="line">  <span class="keyword">val</span> lines = KafkaUtils.createStream(ssc, zkQuorum, group, topicpMap).map(_._2)</div><div class="line">  <span class="keyword">val</span> words = lines.flatMap(_.split(<span class="string">" "</span>))</div><div class="line"></div><div class="line">  <span class="keyword">val</span> pairs = words.map(word =&gt; (word, <span class="number">1</span>))</div><div class="line"></div><div class="line">  <span class="keyword">val</span> wordCounts = pairs.reduceByKey(_ + _)</div><div class="line"></div><div class="line">  wordCounts.print()</div><div class="line"></div><div class="line">  ssc.start()</div><div class="line">  ssc.awaitTermination()</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>其中， <code>val zkQuorum = &quot;10.3.242.35:2181&quot;</code> 是我的 zookeeper 的地址；<code>test-consumer-group</code> 表示 <code>consumer-group</code> 的名称，与<code>$KAFKA_HOME/config/consumer.properties</code> 中的 <code>group.id</code> 的配置内容一致；<code>kafkaTest</code> 表示 topic; 2 表示线程数。一个很简单的 wordcount 的例子，在此就不多做解释了。有问题的话参阅 <a href="http://spark.apache.org/docs/latest/streaming-programming-guide.html#linking" target="_blank" rel="external">http://spark.apache.org/docs/latest/streaming-programming-guide.html#linking</a> 。</p>
+<p>在测试这段程序的过程中遇到了一些问题，首先遇到的一个错误是在打包完成 submit 执行的时候报错：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Caused by: java.lang.NoClassDefFoundError: org<span class="regexp">/apache/</span>spark<span class="regexp">/streaming/</span>kafka<span class="regexp">/KafkaUtils$</span></div></pre></td></tr></table></figure>
+
+<p>经过一番查阅之后发现这是由于下载安装的编译好的 spark 版本里面并不包含 spark-streaming-kafka 包，因此得自己将这些依赖打包到jar文件上传。</p>
+<p>Maven有将依赖打包的功能，而我平时使用的是 sbt ， <code>sbt package</code> 等命令并不支持将依赖连同打包，这时就要求助于 sbt-assembly 了。关于 sbt-assembly ,其 github 上有详细的使用说明，<a href="https://github.com/sbt/sbt-assembly。" target="_blank" rel="external">https://github.com/sbt/sbt-assembly。</a></p>
+<p>如果你平时就用 sbt-assembly 的话那就比较简单了，如果像我一样之前没有用过这个工具的话，还有点小折腾。首先按照 github 上的 README 添加插件就行。配置项目目录下 project 子目录下的 plugins.sbt</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">resolvers += <span class="string">"Typesafe Repository"</span> <span class="preprocessor">at</span> <span class="string">"http://repo.typesafe.com/typesafe/releases/"</span></div><div class="line"></div><div class="line">addSbtPlugin(<span class="string">"com.eed3si9n"</span> % <span class="string">"sbt-assembly"</span> % <span class="string">"0.9.2"</span>)</div></pre></td></tr></table></figure>
+
+<p>然后按照 README 所述添加 build.sbt 的内容，添加完成之后，执行<code>sbt assembly</code>又报错：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">error</span>] (*:<span class="keyword">assembly</span>) deduplicate: different file contents found <span class="keyword">in</span> the following:</div></pre></td></tr></table></figure>
+
+<p>好在这个错误 README 里面已经提醒很有可能会发生了，需要注意的是除了 README 里面举的关于 spark 的几个 conlifcts 的例子，还有其他 conlifcts ，需要 exclude 其他依赖，下面是多次编译发现冲突、修改冲突之后，我的  build.sbt 的具体内容：</p>
+<figure class="highlight import"><figcaption><span>AssemblyKeys._</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">assemblySettings</div><div class="line"></div><div class="line">name<span class="value">:= <span class="string">"KafkaWordCount"</span></span></div><div class="line"></div><div class="line">version := <span class="string">"1.0"</span></div><div class="line"></div><div class="line">scalaVersion := <span class="string">"2.10.4"</span></div><div class="line"></div><div class="line">mainClass in assembly := <span class="function">Some</span>(<span class="string">"com.buptwtist.cristo.KafkaWordCount"</span>)</div><div class="line"></div><div class="line">libraryDependencies ++= <span class="function">Seq</span>(</div><div class="line">  (<span class="string">"org.apache.spark"</span> %% <span class="string">"spark-core"</span> % <span class="string">"1.1.0"</span>).</div><div class="line">    <span class="function">exclude</span>(<span class="string">"org.mortbay.jetty"</span>, <span class="string">"servlet-api"</span>).</div><div class="line">    <span class="function">exclude</span>(<span class="string">"commons-beanutils"</span>, <span class="string">"commons-beanutils-core"</span>).</div><div class="line">    <span class="function">exclude</span>(<span class="string">"commons-collections"</span>, <span class="string">"commons-collections"</span>).</div><div class="line">    <span class="function">exclude</span>(<span class="string">"commons-collections"</span>, <span class="string">"commons-collections"</span>).</div><div class="line">    <span class="function">exclude</span>(<span class="string">"com.esotericsoftware.minlog"</span>, <span class="string">"minlog"</span>).</div><div class="line">    <span class="function">exclude</span>(<span class="string">"org.slf4j"</span>, <span class="string">"jcl-over-slf4j"</span>).</div><div class="line">    <span class="function">excludeAll</span>(</div><div class="line">      <span class="function">ExclusionRule</span>(organization = <span class="string">"org.eclipse.jetty.orbit"</span>)</div><div class="line">    )</div><div class="line">)</div><div class="line"></div><div class="line">libraryDependencies += <span class="string">"org.apache.spark"</span> %% <span class="string">"spark-streaming"</span> % <span class="string">"1.1.0"</span></div><div class="line"></div><div class="line">libraryDependencies += <span class="string">"org.apache.spark"</span> %% <span class="string">"spark-streaming-kafka"</span> % <span class="string">"1.1.0"</span></div><div class="line"></div><div class="line">resolvers += <span class="string">"Akka Repository"</span> at <span class="string">"http://repo.akka.io/releases/"</span></div><div class="line"></div><div class="line">resolvers += <span class="string">"Maven Repository"</span> at <span class="string">"http://repo.maven.apache.org/maven2"</span></div></pre></td></tr></table></figure>
+
+<p>然后 submit</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">spark-submit --<span class="class"><span class="keyword">class</span> <span class="title">com</span>.<span class="title">buptwtist</span>.<span class="title">cristo</span>.<span class="title">KafkaWordCount</span> \</span></div><div class="line">    target/scala-<span class="number">2.10</span>/<span class="constant">KafkaWordCount</span>-assembly-<span class="number">1.0</span>.jar</div></pre></td></tr></table></figure>
+
+<p>终于能顺利运行。</p>
+<p>在 producer 输入 message ，控制台周期计算 wordcount 并显示输出。<br><img s1c="http://cristo.qiniudn.com/blogkafka-streaming-1.png" alt=""></p>
+<p>Kafka + SparkStreaming 运行成功。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Spark/">Spark</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Kafka/">Kafka</a>, <a href="/tags/SparkStreaming/">SparkStreaming</a>, <a href="/tags/流处理/">流处理</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+      
+    </div>
+  </div>
+
+
+
   <div class="animated fadeIn" idplus="Kafka环境搭建与测试" style="display: none;">
     <div idplusp="Kafka环境搭建与测试">
       <article class="post">
@@ -233,7 +379,7 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
 </ul>
 <h2 id="下载与安装">下载与安装</h2>
 <h4 id="下载地址">下载地址</h4>
-<p><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz" target="_blank" rel="external">https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz</a><br><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz" target="_blank" rel="external">点此下载</a></p>
+<p><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz" target="_blank" rel="external">https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz</a></p>
 <h4 id="安装与启动">安装与启动</h4>
 <ul>
 <li>解压</li>
@@ -267,8 +413,12 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SLF4J: Failed <span class="keyword">to</span> load <span class="keyword">class</span> <span class="string">"org.slf4j.impl.StaticLoggerBinder"</span>.</div></pre></td></tr></table></figure>
 
 <p>下载slf4j <a href="http://www.slf4j.org/dist/slf4j-1.7.6.zip" target="_blank" rel="external">http://www.slf4j.org/dist/slf4j-1.7.6.zip</a></p>
-<p>解压<br>unzip slf4j-1.7.6.zip</p>
-<p>把slf4j-nop-1.7.6.jar 包复制到kafka libs目录下面<br>cd  slf4j-1.7.6<br>cp slf4j-nop-1.7.6.jar  your kafka path/libs/</p>
+<p>解压</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>unzip slf4j-<span class="number">1.7</span>.<span class="number">6</span>.zip</div></pre></td></tr></table></figure>
+
+<p>把slf4j-nop-1.7.6.jar 包复制到kafka libs目录下面</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="keyword">cd</span>  slf4j-<span class="number">1.7</span>.<span class="number">6</span></div><div class="line">$ <span class="keyword">cp</span> slf4j-nop-<span class="number">1.7</span>.<span class="number">6</span>.jar  your kafka path/libs/</div></pre></td></tr></table></figure>
+
 <ul>
 <li>创建topic</li>
 </ul>
@@ -750,6 +900,8 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
   
     <li><h2><a href="/tags/Kafka/">Kafka</a></h2></li>
   
+    <li><h2><a href="/tags/SparkStreaming/">SparkStreaming</a></h2></li>
+  
     <li><h2><a href="/tags/mapreduce/">mapreduce</a></h2></li>
   
     <li><h2><a href="/tags/nodejs/">nodejs</a></h2></li>
@@ -761,6 +913,8 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
     <li><h2><a href="/tags/排序/">排序</a></h2></li>
   
     <li><h2><a href="/tags/推荐/">推荐</a></h2></li>
+  
+    <li><h2><a href="/tags/流处理/">流处理</a></h2></li>
   
     <li><h2><a href="/tags/皮尔森相关系数/">皮尔森相关系数</a></h2></li>
   

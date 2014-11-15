@@ -21,8 +21,8 @@
 
 下载与安装
 下载地址
-https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz点此下载
-安">
+https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz
+安装与启动">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -168,7 +168,7 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
 </ul>
 <h2 id="下载与安装">下载与安装</h2>
 <h4 id="下载地址">下载地址</h4>
-<p><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz" target="_blank" rel="external">https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz</a><br><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz" target="_blank" rel="external">点此下载</a></p>
+<p><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz" target="_blank" rel="external">https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz</a></p>
 <h4 id="安装与启动">安装与启动</h4>
 <ul>
 <li>解压</li>
@@ -202,8 +202,12 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SLF4J: Failed <span class="keyword">to</span> load <span class="keyword">class</span> <span class="string">"org.slf4j.impl.StaticLoggerBinder"</span>.</div></pre></td></tr></table></figure>
 
 <p>下载slf4j <a href="http://www.slf4j.org/dist/slf4j-1.7.6.zip" target="_blank" rel="external">http://www.slf4j.org/dist/slf4j-1.7.6.zip</a></p>
-<p>解压<br>unzip slf4j-1.7.6.zip</p>
-<p>把slf4j-nop-1.7.6.jar 包复制到kafka libs目录下面<br>cd  slf4j-1.7.6<br>cp slf4j-nop-1.7.6.jar  your kafka path/libs/</p>
+<p>解压</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>unzip slf4j-<span class="number">1.7</span>.<span class="number">6</span>.zip</div></pre></td></tr></table></figure>
+
+<p>把slf4j-nop-1.7.6.jar 包复制到kafka libs目录下面</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="keyword">cd</span>  slf4j-<span class="number">1.7</span>.<span class="number">6</span></div><div class="line">$ <span class="keyword">cp</span> slf4j-nop-<span class="number">1.7</span>.<span class="number">6</span>.jar  your kafka path/libs/</div></pre></td></tr></table></figure>
+
 <ul>
 <li>创建topic</li>
 </ul>
