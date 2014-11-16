@@ -4,7 +4,7 @@
   <subtitle><![CDATA[This is Cristo's tech utopia. I'm on my way, walk step by step]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2014-11-16T10:53:25.777Z</updated>
+  <updated>2014-11-16T12:18:53.819Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2014/11/16/Kafka-SparkStreaming-%E5%AE%9E%E6%97%B6%E6%B5%81%E5%A4%84%E7%90%86%E5%AE%9E%E8%B7%B5/"/>
     <id>http://yoursite.com/2014/11/16/Kafka-SparkStreaming-实时流处理实践/</id>
     <published>2014-11-15T19:05:15.000Z</published>
-    <updated>2014-11-16T09:42:38.000Z</updated>
+    <updated>2014-11-16T11:07:38.000Z</updated>
     <content type="html"><![CDATA[<p>kafka 最初由 Linkedin 公司开发，使用 Scala 语言编写，是一个分布式、分区、多副本、多订阅者的日志系统。 Spark Streaming 是大规模流式数据处理的新贵，将流式计算分解成一系列短小的批处理作业。由于 SparkStreaming 对网络流方式的支持， SparkStreaming+Kafka 的日志流式处理方式已越来越普遍。本文将讲解如何利用两者搭建出一套实时流处理系统，并详细列出实际搭建过程中遇到的问题及解决方式。</p>
 <h2 id="准备工作">准备工作</h2>
 <ul>
