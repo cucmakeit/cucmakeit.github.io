@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>几种JavaScript生成GUID的算法 | Cristo&#39;s blog</title>
+  <meta name="author" content="Cristo Cui">
+  
+  <meta name="description" content="有的时候，我们需要生成一些Token作为标识：如认证后的标识符，资源的提取码等。一个比较常见的算法是生成一个GUID来作为Token，由于GUID的随机性和唯一性特点，作为Token是一个非常可靠的选择。
+全局唯一标识符（GUID，Globally Unique Identifier）也称作 UUID(Universally Unique IDentifier) 。GUID是一种由算法生成的二进制长度为128位的数字标识符。GUID主要用于在拥有多个节点、多台计算机的网络或系统中。在理想情况下，任何计算机和计算机集群都不会生成两个相同的GUID。GUID 的总数达到了2^128（3.4×10^38）个，所以随机生成两个相同GUID的可能性非常小，但并不为0。
+以下总结几种生成GUID的算法：
+
+算法1：
+
+123456789101112function generateUUID() {    var s = [];    var hexDigits = &quot;0123456789abcdef&quot;;    for (var i = 0; i &amp;lt; 36; i++) {        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);    }    s[14] = &quot;4&quot;;  // bits 12-15 of the time_hi_and_version field to 0010    s[19] = hexDigits.substr((s[19] &amp; 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01    s[8] = s[13] = s[18] = s[23] = &quot;-&quot;;    var uuid = s.join(&quot;&quot;);    return uuid;}">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="几种JavaScript生成GUID的算法"/>
+  <meta property="og:site_name" content="Cristo&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="http://cristo.qiniudn.com/icon.jpg" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="Cristo&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+<a href="https://github.com/cucmakeit"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"></a>
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Cristo&#39;s blog</a></h1>
+  <h2><a href="/">This is Cristo&#39;s tech utopia. I&#39;m on my way, walk step by step</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-11-24T14:18:46.000Z"><a href="/2014/11/24/几种JavaScript生成GUID的算法/">11月 24 2014</a></time>
+      
+      
+  
+    <h1 class="title">几种JavaScript生成GUID的算法</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>有的时候，我们需要生成一些Token作为标识：如认证后的标识符，资源的提取码等。一个比较常见的算法是生成一个GUID来作为Token，由于GUID的随机性和唯一性特点，作为Token是一个非常可靠的选择。</p>
+<p>全局唯一标识符（GUID，Globally Unique Identifier）也称作 UUID(Universally Unique IDentifier) 。GUID是一种由算法生成的二进制长度为128位的数字标识符。GUID主要用于在拥有多个节点、多台计算机的网络或系统中。在理想情况下，任何计算机和计算机集群都不会生成两个相同的GUID。GUID 的总数达到了2^128（3.4×10^38）个，所以随机生成两个相同GUID的可能性非常小，但并不为0。</p>
+<p>以下总结几种生成GUID的算法：</p>
+<ul>
+<li>算法1：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">generateUUID</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">var</span> s = [];</div><div class="line">    <span class="keyword">var</span> hexDigits = <span class="string">"0123456789abcdef"</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">36</span>; i++) {</div><div class="line">        s[i] = hexDigits.substr(<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">0x10</span>), <span class="number">1</span>);</div><div class="line">    }</div><div class="line">    s[<span class="number">14</span>] = <span class="string">"4"</span>;  <span class="comment">// bits 12-15 of the time_hi_and_version field to 0010</span></div><div class="line">    s[<span class="number">19</span>] = hexDigits.substr((s[<span class="number">19</span>] & <span class="number">0x3</span>) | <span class="number">0x8</span>, <span class="number">1</span>);  <span class="comment">// bits 6-7 of the clock_seq_hi_and_reserved to 01</span></div><div class="line">    s[<span class="number">8</span>] = s[<span class="number">13</span>] = s[<span class="number">18</span>] = s[<span class="number">23</span>] = <span class="string">"-"</span>;</div><div class="line">    <span class="keyword">var</span> uuid = s.join(<span class="string">""</span>);</div><div class="line">    <span class="keyword">return</span> uuid;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<ul>
+<li>算法2：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">generateGUID</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="string">'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'</span>.replace(<span class="regexp">/[xy]/g</span>, <span class="function"><span class="keyword">function</span><span class="params">(c)</span> </span>{</div><div class="line">        <span class="keyword">var</span> r = <span class="built_in">Math</span>.random()*<span class="number">16</span>|<span class="number">0</span>, v = c == <span class="string">'x'</span> ? r : (r&<span class="number">0x3</span>|<span class="number">0x8</span>);</div><div class="line">        <span class="keyword">return</span> v.toString(<span class="number">16</span>);</div><div class="line">    });</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<ul>
+<li>算法3：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">generateGUID</span><span class="params">()</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">S4</span><span class="params">()</span> </span>{</div><div class="line">       <span class="keyword">return</span> (((<span class="number">1</span>+<span class="built_in">Math</span>.random())*<span class="number">0x10000</span>)|<span class="number">0</span>).toString(<span class="number">16</span>).substring(<span class="number">1</span>);</div><div class="line">    }</div><div class="line">    <span class="keyword">return</span> (S4()+S4()+<span class="string">"-"</span>+S4()+<span class="string">"-"</span>+S4()+<span class="string">"-"</span>+S4()+<span class="string">"-"</span>+S4()+S4()+S4());</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<ul>
+<li>算法4：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">generateUUID</span><span class="params">(len, radix)</span> </span>{</div><div class="line">    <span class="keyword">var</span> chars = <span class="string">'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'</span>.split(<span class="string">''</span>);</div><div class="line">    <span class="keyword">var</span> uuid = [], i;</div><div class="line">    radix = radix || chars.length;</div><div class="line"> </div><div class="line">    <span class="keyword">if</span> (len) {</div><div class="line">      <span class="comment">// Compact form</span></div><div class="line">      <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) uuid[i] = chars[<span class="number">0</span> | <span class="built_in">Math</span>.random()*radix];</div><div class="line">    } <span class="keyword">else</span> {</div><div class="line">      <span class="comment">// rfc4122, version 4 form</span></div><div class="line">      <span class="keyword">var</span> r;</div><div class="line"> </div><div class="line">      <span class="comment">// rfc4122 requires these characters</span></div><div class="line">      uuid[<span class="number">8</span>] = uuid[<span class="number">13</span>] = uuid[<span class="number">18</span>] = uuid[<span class="number">23</span>] = <span class="string">'-'</span>;</div><div class="line">      uuid[<span class="number">14</span>] = <span class="string">'4'</span>;</div><div class="line"> </div><div class="line">      <span class="comment">// Fill in random data.  At i==19 set the high bits of clock sequence as</span></div><div class="line">      <span class="comment">// per rfc4122, sec. 4.1.5</span></div><div class="line">      <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">36</span>; i++) {</div><div class="line">        <span class="keyword">if</span> (!uuid[i]) {</div><div class="line">          r = <span class="number">0</span> | <span class="built_in">Math</span>.random()*<span class="number">16</span>;</div><div class="line">          uuid[i] = chars[(i == <span class="number">19</span>) ? (r & <span class="number">0x3</span>) | <span class="number">0x8</span> : r];</div><div class="line">        }</div><div class="line">      }</div><div class="line">    }</div><div class="line"> </div><div class="line">    <span class="keyword">return</span> uuid.join(<span class="string">''</span>);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>该算法进行了包装，可以指定生成UUID的长度和基数，例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 8 character ID (base=2)</span></div><div class="line"><span class="function">uuid</span>(8, 2)  <span class="comment">//  "10000111 "</span></div><div class="line"><span class="comment">// 8 character ID (base=10)</span></div><div class="line"><span class="function">uuid</span>(8, 10) <span class="comment">// "54104673 "</span></div><div class="line"><span class="comment">// 8 character ID (base=16)</span></div><div class="line"><span class="function">uuid</span>(8, 16) <span class="comment">// "547F0D7F "</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>算法5</li>
+</ul>
+<p>据称是最快的生成GUID的算法 ^_^</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">generateGUID</span><span class="params">()</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_p8</span><span class="params">(s)</span> </span>{</div><div class="line">        <span class="keyword">var</span> p = (<span class="built_in">Math</span>.random().toString(<span class="number">16</span>)+<span class="string">"000000000"</span>).substr(<span class="number">2</span>,<span class="number">8</span>);</div><div class="line">        <span class="keyword">return</span> s ? <span class="string">"-"</span> + p.substr(<span class="number">0</span>,<span class="number">4</span>) + <span class="string">"-"</span> + p.substr(<span class="number">4</span>,<span class="number">4</span>) : p ;</div><div class="line">    }</div><div class="line">    <span class="keyword">return</span> _p8() + _p8(<span class="literal">true</span>) + _p8(<span class="literal">true</span>) + _p8();</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>总结自<br><a href="http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript/873856#873856" target="_blank" rel="external">http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript/873856#873856</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/nodejs/">nodejs</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>, <a href="/tags/nodejs/">nodejs</a>, <a href="/tags/GUID/">GUID</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<nav id="pagination" >
+    
+    
+    <a href="/2014/11/16/Kafka-SparkStreaming-实时流处理实践/" class="alignright next" >下一页</a>
+    
+    <div class="clearfix"></div>
+</nav>
+<section id="comment">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-category="<#article/category/id#>" data-thread-key="<#article/id#>" data-title="<#article/title#>" data-author-key="<#article/author/id#>"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"cucmakeit"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Hadoop/">Hadoop</a><small>1</small></li>
+  
+    <li><a href="/categories/Kafka/">Kafka</a><small>1</small></li>
+  
+    <li><a href="/categories/Spark/">Spark</a><small>1</small></li>
+  
+    <li><a href="/categories/nodejs/">nodejs</a><small>2</small></li>
+  
+    <li><a href="/categories/推荐系统/">推荐系统</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/GUID/" style="font-size: 10.00px;">GUID</a><a href="/tags/Kafka/" style="font-size: 20.00px;">Kafka</a><a href="/tags/SparkStreaming/" style="font-size: 10.00px;">SparkStreaming</a><a href="/tags/javascript/" style="font-size: 10.00px;">javascript</a><a href="/tags/mapreduce/" style="font-size: 10.00px;">mapreduce</a><a href="/tags/nodejs/" style="font-size: 20.00px;">nodejs</a><a href="/tags/promise/" style="font-size: 10.00px;">promise</a><a href="/tags/修正余弦相似度/" style="font-size: 10.00px;">修正余弦相似度</a><a href="/tags/排序/" style="font-size: 10.00px;">排序</a><a href="/tags/推荐/" style="font-size: 10.00px;">推荐</a><a href="/tags/流处理/" style="font-size: 10.00px;">流处理</a><a href="/tags/皮尔森相关系数/" style="font-size: 10.00px;">皮尔森相关系数</a><a href="/tags/相似度/" style="font-size: 10.00px;">相似度</a><a href="/tags/调整余弦相似度/" style="font-size: 10.00px;">调整余弦相似度</a>
+  </div>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">Scoial</h3>
+<ul class="entry">
+
+</ul>
+
+<li>
+	<a href="http://weibo.com/2150756497">
+        <img id="weibo" class="weibo" src="http://cristo.qiniudn.com/weibo-logo.jpg" style="height:40px" width="50px">
+    </a>
+    <a href="https://github.com/cucmakeit">
+        <img id="github" class="github" src="http://cristo.qiniudn.com/github.jpg" style="height:40px" width="40px">
+    </a>
+    <a href="mailto:cucmakeit@gmail.com">
+        <img id="gmail" class="gmail" src="http://cristo.qiniudn.com/email.jpg" style="height:40px" width="40px">
+    </a>
+    <a href="https://www.facebook.com/ce.cui.56">
+        <img id="facebook" class="facebook" src="http://cristo.qiniudn.com/facebook-small.jpg" style="height:40px" width="40px">
+    </a>
+</li>
+
+</div>
+
+  <div class="personal-info">
+  <figure>
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="http://cristo.qiniudn.com/blogicon1.jpg" alt="Cristo Cui" style="height:"270px" width="270px">
+      </a>
+    </div>
+  </figure>
+  
+<div class="theme-info">
+  <a target="_blank" href="http://www.weibo.com/2150756497" class="html5"> Contact me</a> 
+  &copy; - 2014 Cristo Cui
+  
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 Cristo Cui
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
