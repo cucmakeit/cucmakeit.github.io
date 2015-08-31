@@ -4,7 +4,7 @@
   <subtitle><![CDATA[This is Cristo's tech utopia. I'm on my way, walk step by step]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-08-31T17:15:26.133Z</updated>
+  <updated>2015-08-31T17:17:25.643Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/09/01/%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%AD%E7%AC%ACk%E5%A4%A7%E7%9A%84%E6%95%B0/"/>
     <id>http://yoursite.com/2015/09/01/求数组中第k大的数/</id>
     <published>2015-08-31T17:09:10.000Z</published>
-    <updated>2015-08-31T17:13:01.000Z</updated>
+    <updated>2015-08-31T17:17:12.000Z</updated>
     <content type="html"><![CDATA[<p>求一个数组中第k大的数，我第一印象是冒泡，因为只要冒泡k趟即可，第一趟冒泡第一大，第二次冒泡第二大，第k次冒泡第k大，时间复杂度为O(kn),n为数组长度。但是我们都知道快速排序是对冒泡的改进，降低冒泡的递归深度，使时间复杂度降低到O(nlgn)，为什么不用快排呢？那么快排的时间复杂度又是多少呢？</p>
 <p>因为快排每次将数组划分为两组加一个枢纽元素，每一趟划分你只需要将k与枢纽元素的下标进行比较，如果比枢纽元素下标大就从右边的子数组中找，如果比枢纽元素下标小从左边的子数组中找，如果一样则就是枢纽元素，找到，如果需要从左边或者右边的子数组中再查找的话，只需要递归一边查找即可，无需像快排一样两边都需要递归，所以复杂度必然降低。</p>
 <p>最差情况如下：假设快排每次都平均划分，但是都不在枢纽元素上找到第k大</p>
@@ -37,7 +37,7 @@
     
     </summary>
     
-      <category term="algorithm，arr" scheme="http://yoursite.com/tags/algorithm%EF%BC%8Carr/"/>
+      <category term="algorithm，Array" scheme="http://yoursite.com/tags/algorithm%EF%BC%8CArray/"/>
     
       <category term="algorithm" scheme="http://yoursite.com/categories/algorithm/"/>
     
