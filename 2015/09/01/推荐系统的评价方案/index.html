@@ -87,17 +87,20 @@
 <p> <strong>分类准确度定义为推荐算法对一个物品用户是否喜欢判断正确的比例，当用户只有二元选择时，用分类准确度进行评价较为合适</strong></p>
 <p>典型的就是<strong>准确率</strong>(Precision)和<strong>召回率</strong>(Recall)</p>
 <p><strong>准确率</strong>表示用户对一个推荐物品感兴趣的可能性</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Precision = N<span class="tag">&lt;<span class="title">sub</span>&gt;</span>s<span class="tag">&lt;/<span class="title">sub</span>&gt;</span> / N<span class="tag">&lt;<span class="title">sub</span>&gt;</span>r<span class="tag">&lt;/<span class="title">sub</span>&gt;</span></div></pre></td></tr></table></figure>
-
+<blockquote>
+<p>Precision = N<sub>s</sub> / N<sub>r</sub></p>
+</blockquote>
 <p>其中 N<sub>r</sub> 表示推荐物品的个数，N<sub>s</sub> 表示推荐列表中用户喜欢的物品个数。</p>
 <p><strong>召回率</strong>定义为推荐列表中用户喜欢的产品占系统中用户喜欢的所有产品的比率</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Recall = N<span class="tag">&lt;<span class="title">sub</span>&gt;</span>s<span class="tag">&lt;/<span class="title">sub</span>&gt;</span> / N<span class="tag">&lt;<span class="title">sub</span>&gt;</span>a<span class="tag">&lt;/<span class="title">sub</span>&gt;</span></div></pre></td></tr></table></figure>
-
+<blockquote>
+<p>Recall = N<sub>s</sub> / N<sub>a</sub></p>
+</blockquote>
 <p>其中 N<sub>s</sub> 表示推荐列表中用户喜欢的物品个数，N<sub>a</sub> 表示系统中用户喜欢的产品的总数。</p>
 <p>推荐系统当中无法知道用户是否喜欢某些未知的产品，所以召回率在纯粹意义上讲并不适合度量推荐系统。因为召回率需要知道每个用户对未选择产品的洗好，然而这与推荐系统的初衷是相悖的。</p>
 <p><strong>F指标</strong>是将Precision和Recall综合考虑的评价指标</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">F</span>=<span class="string"> 2PR / (P + R)</span></div></pre></td></tr></table></figure>
-
+<blockquote>
+<p>F= 2PR / (P + R)</p>
+</blockquote>
 <h2 id="度量推荐列表的物品排序">度量推荐列表的物品排序</h2>
 <p>关于排序效果的度量有多重方法，由于本人现在进行的推荐项目才是刚刚起步，对于推荐列表的总体质量的追求远远大于推荐排序质量的追求，这部分将在后续工作中陆续完善。</p>
 <p>有排序准确度、预测打分关联、距离标准化指标、半衰期效用指标等。</p>
@@ -113,16 +116,18 @@
 <p> <strong>覆盖率</strong>定义为可以预测打分的产品占所有产品的比例</p>
 <p>在电商行业当中这一指标尤为重要，不同于线下的商店，电商网站可以有大量的商品，而其中流通活跃的商品可能只占其中的20%，其余80%的商品都是流通不活跃的。带动长尾物品的销售能给网站带来指数般的营业增长。</p>
 <p> 在电商行业中，推荐系统的核心任务就是给用户推荐那80%不活跃的商品。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Coverage = P<span class="tag">&lt;<span class="title">sub</span>&gt;</span>r<span class="tag">&lt;/<span class="title">sub</span>&gt;</span> / P<span class="tag">&lt;<span class="title">sub</span>&gt;</span>t<span class="tag">&lt;/<span class="title">sub</span>&gt;</span></div></pre></td></tr></table></figure>
-
+<blockquote>
+<p>Coverage = P<sub>r</sub> / P<sub>t</sub></p>
+</blockquote>
 <p>其中 P<sub>r</sub> 表示所有用户的推荐列表中涵盖商品的个数，P<sub>t</sub> 总的商品个数。</p>
 <p>推荐系统不应该盲目地追求某个指标，而应该折中地考虑各种指标。</p>
 <h2 id="关于流行度和多样性">关于流行度和多样性</h2>
 <p>一个产品的度就是被收藏或购买的次数，产品度越大，说明越流行。如果系趋向于推荐流行的产品，那么被推荐产品的平均度就会很高；反制，平均度会很低。一般而言，被推荐产品的平均度小的系统相对更好。</p>
 <p> 对于商品<strong>流行度</strong>的度量，可以计算商品浏览、收藏、购买等操作次数，归一化后左右商品流行度，越接近1的越流行，接近0则是不流行了。</p>
 <p>可以利用海明距离度量推荐系统中推荐列表的<strong>多样性</strong>，用户i和j推荐列表的海明距离被定义如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">H<span class="tag">&lt;<span class="title">sub</span>&gt;</span>ij<span class="tag">&lt;/<span class="title">sub</span>&gt;</span> = 1 - Q<span class="tag">&lt;<span class="title">sub</span>&gt;</span>ij<span class="tag">&lt;/<span class="title">sub</span>&gt;</span> / L</div></pre></td></tr></table></figure>
-
+<blockquote>
+<p>H<sub>ij</sub> = 1 - Q<sub>ij</sub> / L</p>
+</blockquote>
 <p>其中 L 为推荐列表的长度，Q<sub>ij</sub>为系统推荐给用户i和j的两个推荐列表中相同产品的个数。推荐列表的多样性定义为H<sub>ij</sub>的平均值H。推荐列表多样性的最大值为1，即所有用户的推荐列表完全不一样；最小值为0，以为这所有用户的推荐列表一模一样。</p>
 <h2 id="关于新颖性和用户满意度">关于新颖性和用户满意度</h2>
 <p>待补充</p>
