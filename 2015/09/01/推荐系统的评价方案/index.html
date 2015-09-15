@@ -1,0 +1,297 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>推荐系统的评价方案 | Cristo&#39;s blog</title>
+  <meta name="author" content="Cristo Cui">
+  
+  <meta name="description" content="对于推荐系统的评价有很多的指标，但对于不同的应用采用相同的评价指标可能也会有截然不同的结果，对于同一个应用的不同评价指标对于评价推荐系统的贡献是不一样的。例如采用MAE和RMSE等针对评分预测的评价指标作用于TopN推荐的场景中，可能指标能反映的内容比较有限。
+因此，在确定推荐系统应该以什么指标去做">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="推荐系统的评价方案"/>
+  <meta property="og:site_name" content="Cristo&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="http://cristo.qiniudn.com/icon.jpg" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="Cristo&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+<a href="https://github.com/cucmakeit"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"></a>
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Cristo&#39;s blog</a></h1>
+  <h2><a href="/">This is Cristo&#39;s tech utopia. I&#39;m on my way, walk step by step</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-08-31T16:18:46.000Z"><a href="/2015/09/01/推荐系统的评价方案/">9月 1 2015</a></time>
+      
+      
+  
+    <h1 class="title">推荐系统的评价方案</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>对于推荐系统的评价有很多的指标，但对于不同的应用采用相同的评价指标可能也会有截然不同的结果，对于同一个应用的不同评价指标对于评价推荐系统的贡献是不一样的。例如采用MAE和RMSE等针对评分预测的评价指标作用于TopN推荐的场景中，可能指标能反映的内容比较有限。</p>
+<p>因此，在确定推荐系统应该以什么指标去做效果评价的时候，要先明确你的推荐系统做的是什么事情，使用者对推荐的哪方面内容最感兴趣。</p>
+<ul>
+<li>像音乐、电影等推荐场景，应以推荐冷门但符合用户喜好的物品的能力为评价标准之一，为用户挖掘同一套系列的不同物品对用户的贡献不如为用户推荐题材相同但比较冷门的物品，因为后者对用户来说比较难发现，这就体现了推荐系统在音乐、电影等推荐场景的价值；</li>
+<li>而对于ResysChina上的技术文章的推荐场景，我更希望系统推荐出来的是符合我最近浏览的文章的主题的，也就是同类的文章，以便于我对某个内容了解更多信息；</li>
+<li>而电商平台的推荐则需要根据不同的商品去评价推荐的效果，假如我最近买了一台冰箱，系统一个劲地给我推荐同类产品（冰箱）还有意义吗？而如果我近期买了某种零食，系统给我推荐同类的零食，你可以说它没有意义吗？</li>
+</ul>
+<blockquote>
+<p>总而言之，不同的应用场景，会采用不同的评价方案。<br>电商场景的推荐系统的评价方案将是本文阐述的内容。</p>
+<p><strong>关键词：</strong> 准确率，召回率，覆盖率，流行度，新颖度/惊喜度，转化率，推荐排序</p>
+</blockquote>
+<h2 id="预测准确度">预测准确度</h2>
+<blockquote>
+<p><strong>预测准确度考虑推荐算法的预测打分与用户实际打分的相似程度，在预测分值显示给用户的系统中，预测准确度十分重要。</strong></p>
+</blockquote>
+<p>典型的就是平均绝对误差(Mean Absolute Error, <strong>MAE</strong>)，和均方根误差(Root Mean Squared Error, <strong>RMSE</strong>)</p>
+<p>在Netfix的推荐算法大赛中采用的就是RMSE，如此一来，Netfix把推荐看做一个用户给电影打分的问题，而更合理的应该是推荐物品的排序问题，因此在这个场景当中使用RMSE做评价标准可能不太贴切。</p>
+<p>在商品推荐的场景当中，我们计算出用户对商品的评分只能用户衡量推荐系统的准确性，但更为重要的是，我们关心最终用户会下单的推荐商品，因此用预测准确率去评估商品推荐的场景，它的意义就被大大削弱了。</p>
+<p>商品推荐应该是一个分类问题或者是排序问题，前者考量分类准确的概率，推荐的物品都是否都是用户喜欢的，后者考量推荐列表的质量，因为用户在浏览推荐列表的过程中有效用递减规律，靠后的虽然是用户喜欢的商品，但用户看到的机会会逐渐衰减。</p>
+<h2 id="分类准确度">分类准确度</h2>
+<blockquote>
+<p><strong>分类准确度定义为推荐算法对一个物品用户是否喜欢判断正确的比例，当用户只有二元选择时，用分类准确度进行评价较为合适</strong></p>
+</blockquote>
+<p>典型的就是<strong>准确率</strong>(Precision)和<strong>召回率</strong>(Recall)</p>
+<p><strong>准确率</strong>表示用户对一个推荐物品感兴趣的可能性</p>
+<blockquote>
+<p>Precision = N<sub>s</sub> / N<sub>r</sub><br>其中 N<sub>r</sub> 表示推荐物品的个数，N<sub>s</sub> 表示推荐列表中用户喜欢的物品个数。</p>
+</blockquote>
+<p><strong>召回率</strong>定义为推荐列表中用户喜欢的产品占系统中用户喜欢的所有产品的比率</p>
+<blockquote>
+<p>Recall = N<sub>s</sub> / N<sub>a</sub><br>其中 N<sub>s</sub> 表示推荐列表中用户喜欢的物品个数，N<sub>a</sub> 表示系统中用户喜欢的产品的总数。</p>
+</blockquote>
+<p>推荐系统当中无法知道用户是否喜欢某些未知的产品，所以召回率在纯粹意义上讲并不适合度量推荐系统。因为召回率需要知道每个用户对未选择产品的洗好，然而这与推荐系统的初衷是相悖的。</p>
+<p><strong>F指标</strong>是将Precision和Recall综合考虑的评价指标</p>
+<blockquote>
+<p>F= 2PR / (P + R)</p>
+</blockquote>
+<h2 id="度量推荐列表的物品排序">度量推荐列表的物品排序</h2>
+<p>关于排序效果的度量有多重方法，由于本人现在进行的推荐项目才是刚刚起步，对于推荐列表的总体质量的追求远远大于推荐排序质量的追求，这部分将在后续工作中陆续完善。</p>
+<p>有排序准确度、预测打分关联、距离标准化指标、半衰期效用指标等。</p>
+<p>这里展开一些推荐系统应用到生产环境的话题，在推荐效果评估方面，个人认为在项目从起步到成熟，追求的推荐指标应该如此：</p>
+<blockquote>
+<ol>
+<li>准确率、召回率、覆盖率</li>
+<li>流行度、多样性</li>
+<li>推荐排序</li>
+<li>新颖性</li>
+<li>用户满意度</li>
+</ol>
+</blockquote>
+<h2 id="物品覆盖率">物品覆盖率</h2>
+<blockquote>
+<p><strong>覆盖率</strong>定义为可以预测打分的产品占所有产品的比例</p>
+</blockquote>
+<p>在电商行业当中这一指标尤为重要，不同于线下的商店，电商网站可以有大量的商品，而其中流通活跃的商品可能只占其中的20%，其余80%的商品都是流通不活跃的。带动长尾物品的销售能给网站带来指数般的营业增长。</p>
+<blockquote>
+<p>在电商行业中，推荐系统的核心任务就是给用户推荐那80%不活跃的商品。</p>
+<p>Coverage = P<sub>r</sub> / P<sub>t</sub><br>其中 P<sub>r</sub> 表示所有用户的推荐列表中涵盖商品的个数，P<sub>t</sub> 总的商品个数。</p>
+</blockquote>
+<p>推荐系统不应该盲目地追求某个指标，而应该折中地考虑各种指标。</p>
+<h2 id="关于流行度和多样性">关于流行度和多样性</h2>
+<p>一个产品的度就是被收藏或购买的次数，产品度越大，说明越流行。如果系趋向于推荐流行的产品，那么被推荐产品的平均度就会很高；反制，平均度会很低。一般而言，被推荐产品的平均度小的系统相对更好。</p>
+<blockquote>
+<p>对于商品<strong>流行度</strong>的度量，可以计算商品浏览、收藏、购买等操作次数，归一化后左右商品流行度，越接近1的越流行，接近0则是不流行了。</p>
+</blockquote>
+<p>可以利用海明距离度量推荐系统中推荐列表的<strong>多样性</strong>，用户i和j推荐列表的海明距离被定义如下：</p>
+<blockquote>
+<p>H<sub>ij</sub> = 1 - Q<sub>ij</sub> / L<br>其中 L 为推荐列表的长度，Q<sub>ij</sub>为系统推荐给用户i和j的两个推荐列表中相同产品的个数。推荐列表的多样性定义为H<sub>ij</sub>的平均值H。推荐列表多样性的最大值为1，即所有用户的推荐列表完全不一样；最小值为0，以为这所有用户的推荐列表一模一样。</p>
+</blockquote>
+<h2 id="关于新颖性和用户满意度">关于新颖性和用户满意度</h2>
+<p>还是等之后项目发展了再陆续补充</p>
+<hr>
+<h4 id="参考资料">参考资料</h4>
+<p>[个性化推荐系统评价方法综述] (<a href="http://202.116.1.161:81/jamwiki-1.2.1/uploads/en/2013/5/1b_%E4%B8%AA%E6%80%A7%E5%8C%96%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%BB%BC%E8%BF%B0-30101315.pdf" target="_blank" rel="external">http://202.116.1.161:81/jamwiki-1.2.1/uploads/en/2013/5/1b_%E4%B8%AA%E6%80%A7%E5%8C%96%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E7%BB%BC%E8%BF%B0-30101315.pdf</a>)</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/推荐系统/">推荐系统</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/推荐系统/">推荐系统</a>, <a href="/tags/评价指标/">评价指标</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<nav id="pagination" >
+    
+    <a href="/2015/09/01/求数组中第k大的数/" class="alignleft prev" >上一页</a>
+    
+    
+    <a href="/2014/12/30/GraphX中基于Pregel的单源最短路径详解/" class="alignright next" >下一页</a>
+    
+    <div class="clearfix"></div>
+</nav>
+<section id="comment">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-category="<#article/category/id#>" data-thread-key="<#article/id#>" data-title="<#article/title#>" data-author-key="<#article/author/id#>"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"cucmakeit"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Hadoop/">Hadoop</a><small>1</small></li>
+  
+    <li><a href="/categories/Kafka/">Kafka</a><small>1</small></li>
+  
+    <li><a href="/categories/Spark/">Spark</a><small>2</small></li>
+  
+    <li><a href="/categories/algorithm/">algorithm</a><small>1</small></li>
+  
+    <li><a href="/categories/nodejs/">nodejs</a><small>2</small></li>
+  
+    <li><a href="/categories/推荐系统/">推荐系统</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/GUID/" style="font-size: 10.00px;">GUID</a><a href="/tags/GraphX/" style="font-size: 10.00px;">GraphX</a><a href="/tags/Kafka/" style="font-size: 20.00px;">Kafka</a><a href="/tags/Spark/" style="font-size: 10.00px;">Spark</a><a href="/tags/SparkStreaming/" style="font-size: 10.00px;">SparkStreaming</a><a href="/tags/algorithm，Array/" style="font-size: 10.00px;">algorithm，Array</a><a href="/tags/javascript/" style="font-size: 10.00px;">javascript</a><a href="/tags/mapreduce/" style="font-size: 10.00px;">mapreduce</a><a href="/tags/nodejs/" style="font-size: 20.00px;">nodejs</a><a href="/tags/promise/" style="font-size: 10.00px;">promise</a><a href="/tags/修正余弦相似度/" style="font-size: 10.00px;">修正余弦相似度</a><a href="/tags/排序/" style="font-size: 10.00px;">排序</a><a href="/tags/推荐/" style="font-size: 10.00px;">推荐</a><a href="/tags/推荐系统/" style="font-size: 10.00px;">推荐系统</a><a href="/tags/流处理/" style="font-size: 10.00px;">流处理</a><a href="/tags/皮尔森相关系数/" style="font-size: 10.00px;">皮尔森相关系数</a><a href="/tags/相似度/" style="font-size: 10.00px;">相似度</a><a href="/tags/评价指标/" style="font-size: 10.00px;">评价指标</a><a href="/tags/调整余弦相似度/" style="font-size: 10.00px;">调整余弦相似度</a>
+  </div>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">Scoial</h3>
+<ul class="entry">
+
+</ul>
+
+<li>
+	<a href="http://weibo.com/2150756497">
+        <img id="weibo" class="weibo" src="http://cristo.qiniudn.com/weibo-logo.jpg" style="height:40px" width="50px">
+    </a>
+    <a href="https://github.com/cucmakeit">
+        <img id="github" class="github" src="http://cristo.qiniudn.com/github.jpg" style="height:40px" width="40px">
+    </a>
+    <a href="mailto:cucmakeit@gmail.com">
+        <img id="gmail" class="gmail" src="http://cristo.qiniudn.com/email.jpg" style="height:40px" width="40px">
+    </a>
+    <a href="https://www.facebook.com/ce.cui.56">
+        <img id="facebook" class="facebook" src="http://cristo.qiniudn.com/facebook-small.jpg" style="height:40px" width="40px">
+    </a>
+</li>
+
+</div>
+
+  <div class="personal-info">
+  <figure>
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="http://cristo.qiniudn.com/blogicon1.jpg" alt="Cristo Cui" style="height:"270px" width="270px">
+      </a>
+    </div>
+  </figure>
+  
+<div class="theme-info">
+  <a target="_blank" href="http://www.weibo.com/2150756497" class="html5"> Contact me</a> 
+  &copy; - 2015 Cristo Cui
+  
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Cristo Cui
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
