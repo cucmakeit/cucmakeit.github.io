@@ -4,7 +4,7 @@
   <subtitle><![CDATA[This is Cristo's tech utopia. I'm on my way, walk step by step]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-09-20T04:25:10.262Z</updated>
+  <updated>2015-09-20T04:26:28.898Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <link href="http://yoursite.com/2015/09/20/resume/"/>
     <id>http://yoursite.com/2015/09/20/resume/</id>
     <published>2015-09-20T04:24:40.000Z</published>
-    <updated>2015-09-20T04:24:55.000Z</updated>
-    <content type="html"><![CDATA[<p>Cui Ce<br>Tel: (+86)13120398656<br>Email: cucmakeit@gmail.com</p>
+    <updated>2015-09-20T04:26:13.000Z</updated>
+    <content type="html"><![CDATA[<p>Cui Ce<br>Tel: (+86)13120398656<br>Email: cucmakeit@gmail.com<br><a id="more"></a></p>
 <h2 id="Job_Objective">Job Objective</h2>
 <p>Software Development Engineer</p>
 <h2 id="Education">Education</h2>
@@ -70,9 +70,8 @@
 </ul>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>Cui Ce<br>Tel: (+86)13120398656<br>Email: cucmakeit@gmail.com</p>
-<h2 id="Job_Objective">Job Objective</h2>
-<p>Software Development Engin]]>
+    <![CDATA[<p>Cui Ce<br>Tel: (+86)13120398656<br>Email: cucmakeit@gmail.com<br>]]>
+    
     </summary>
     
       <category term="resume" scheme="http://yoursite.com/tags/resume/"/>
