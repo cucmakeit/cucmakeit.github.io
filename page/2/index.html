@@ -52,6 +52,52 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2014-11-13T10:52:27.000Z"><a href="/2014/11/13/MapReduce排序过程详解/">11月 13 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/11/13/MapReduce排序过程详解/">MapReduce排序过程详解</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>Hadoop、Spark等分布式数据处理框架在宣传自己的性能时大都以排序效果来做比较，各种类别的Sort Benchmark已成为行业基准测试。之所以选择排序是因为排序的核心是shuffle操作，数据的传输会横跨集群中所有主机，Shuffle基本支持了所有的分布式数据处理负载。</p>
+<p>下面就来详细分析一下使用mapreduce实现排序的基本过程。先看一些准备知识。</p>
+<h2 id="MapReduce中的数据流动">MapReduce中的数据流动</h2>
+<ul>
+<li>最简单的过程： map - reduce</li>
+<li>定制了partitioner以将map的结果送往指定reducer的过程： map - partition - reduce</li>
+<li>增加了在本地先进行一次reduce（优化）的过程： map - combine - partition - reduce</li>
+</ul>
+<h2 id="Partition的概念和使用">Partition的概念和使用</h2>
+<p>得到map产生的记录后，他们该分配给哪些reducer来处理呢？hadoop默认是根据散列值来派发，但是实际中，这并不能很高效或者按照我们要求的去执行任务。例如，经过partition处理后，一个节点的reducer分配到了20条记录，另一个却分配到了10W万条，试想，这种情况效率如何。又或者，我们想要处理后得到的文件按照一定的规律进行输出，假设有两个reducer，我们想要最终结果中part-00000中存储的是”h”开头的记录的结果，part-00001中存储其他开头的结果，这些默认的partitioner是做不到的。所以需要我们自己定制partition来选择reducer。自定义partitioner很简单，只要自定义一个类，并且继承Partitioner类，重写其getPartition方法就好了，在使用的时候通过调用Job的setPartitionerClass指定一下即可。</p>
+<p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/11/13/MapReduce排序过程详解/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2014-11-08T12:21:22.000Z"><a href="/2014/11/08/Promise之回调金字塔篇/">11月 8 2014</a></time>
       
       

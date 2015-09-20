@@ -4,7 +4,7 @@
   <subtitle><![CDATA[This is Cristo's tech utopia. I'm on my way, walk step by step]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-09-15T16:24:54.933Z</updated>
+  <updated>2015-09-20T04:21:51.903Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,69 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[]]></title>
+    <link href="http://yoursite.com/2015/09/20/resume/"/>
+    <id>http://yoursite.com/2015/09/20/resume/</id>
+    <published>2015-09-20T04:20:25.000Z</published>
+    <updated>2015-09-20T04:20:25.000Z</updated>
+    <content type="html"><![CDATA[<p>Cui Ce<br>Tel: (+86)13120398656<br>Email: cucmakeit@gmail.com</p>
+<h2 id="Job_Objective">Job Objective</h2>
+<p>Software Development Engineer</p>
+<h2 id="Education">Education</h2>
+<p>2013.09-2016.04    Beijing University of Posts and Telecommunications         Master    Rank : 10%</p>
+<p>2009.09-2013.06    Nanjing University of Posts and Telecommunications        Bachelor        Rank : 1%</p>
+<h2 id="Skills">Skills</h2>
+<ul>
+<li>Good at Java, C++, Python, Scala, familiar with C, JavaScript and Node.js.</li>
+<li>Solid data structure and algorithm knowledge.</li>
+<li>Lots of data mining practice, skilled with machine learning algorithm, such as SVM, GBDT, SVD, etc.</li>
+<li>Fond of natural language processing, familiar with PLSA, LDA, word2vec, etc.</li>
+<li>Skilled with Spark, Hive, Hadoop, familiar with Kafka, HBase, have knowledge in graph processing.</li>
+</ul>
+<h2 id="Honors">Honors</h2>
+<ul>
+<li>National Scholarship (2012)                        </li>
+<li>National Encourage Scholarship (2011)</li>
+<li>First Prize Scholarship (2012/2011)                </li>
+<li>Outstanding Student (2012/2011/2009)</li>
+<li>Outstanding Student Leaders (2014/2010)            </li>
+<li>Social Work Excellence Award (2010)</li>
+</ul>
+<h2 id="Internship_Experience">Internship Experience</h2>
+<p>2015.04-2015.09    Alibaba Group – Alimama BU – Accurate Orientation Dept.     Algorithm Engineer</p>
+<ul>
+<li>Ad-adzones Recommendation    Solve the problem of how to choose Ad-adzones faced by advertisers, mine and optimize the supply and demand contradiction between advertiser and DSP, provide personalized solutions for advertisers, promote traffic’s utilization ratio.</li>
+<li>Traffic Prediction    A kind of advertiser tools. First collect the information from RTB system, then try to predict how much traffic the advertiser will compete based on his current plan, we’ve tried MLR, SVM and Decision Tree to solve this problem.</li>
+<li>Automatic Plan Recommendation    According to one’s marketing objectives, generate the plan automatically.</li>
+</ul>
+<h2 id="Project_Experience">Project Experience</h2>
+<ul>
+<li><p>Mobile Application Development            sponsor and developer</p>
+<p>  We do it for interest. We find a field where is lacking of an application to aggregate the long tail demand, so we designed an APP, which can not only accelerate aggregation efficiency, but also enhance the user experience. I’m responsible for the recommendation engine and the development of the background (with Node.js).</p>
+</li>
+<li><p>Recommendation of Phone Insurance        interface person and algorithm</p>
+<p>  A cooperation with telecommunication operator and an insurance company, the goal is to recommend phone insurance for objective potential users. As the representative of my lab, I contacted with the cooperators independently. I did most of the analysis work, exported the model and participated to design the data warehouse.</p>
+</li>
+<li><p>Analysis of Telecommunication Data            interface person and core developer</p>
+<p>  A cooperation with telecommunication operator. I undertook two models in the project. One is the recognition of users who’ve leaved the network but returned again, the other one is the prediction of trend about users’ traffic. During the project, I participated to build our own Big Data Analysis Platform, got familiar with Spark and graphs processing, tried many machine learning algorithms. It’s my fastest growing stage in recent years.</p>
+</li>
+<li><p>Recommendation of Game Equipment    </p>
+<p>  A part of the cooperation with a game company. My job is to analyze players’ purchase history on equipment, the attribute of each role and the association of users, then recommend suited equipment for players. I used the collaborative filtering and Association Rules, which was proved to be satisfied.</p>
+</li>
+<li><p>Analysis of Citizen’s Data of Entry and Leave the Country</p>
+<p>  Taking advantage of citizen’s entry and exit data, we tried to detect abnormal trips and detect the fellow travelers.</p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Cui Ce<br>Tel: (+86)13120398656<br>Email: cucmakeit@gmail.com</p>
+<h2 id="Job_Objective">Job Objective</h2>
+<p>Software Development Engin]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[求数组中第k大的数]]></title>
