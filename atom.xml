@@ -4,7 +4,7 @@
   <subtitle><![CDATA[This is Cristo's tech utopia. I'm on my way, walk step by step]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-09-20T04:26:28.898Z</updated>
+  <updated>2015-09-20T04:27:38.624Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[resume]]></title>
+    <title><![CDATA[Resume]]></title>
     <link href="http://yoursite.com/2015/09/20/resume/"/>
     <id>http://yoursite.com/2015/09/20/resume/</id>
     <published>2015-09-20T04:24:40.000Z</published>
-    <updated>2015-09-20T04:26:13.000Z</updated>
+    <updated>2015-09-20T04:27:23.000Z</updated>
     <content type="html"><![CDATA[<p>Cui Ce<br>Tel: (+86)13120398656<br>Email: cucmakeit@gmail.com<br><a id="more"></a></p>
 <h2 id="Job_Objective">Job Objective</h2>
 <p>Software Development Engineer</p>
@@ -74,9 +74,9 @@
     
     </summary>
     
-      <category term="resume" scheme="http://yoursite.com/tags/resume/"/>
+      <category term="Resume" scheme="http://yoursite.com/tags/Resume/"/>
     
-      <category term="resume" scheme="http://yoursite.com/categories/resume/"/>
+      <category term="Resume" scheme="http://yoursite.com/categories/Resume/"/>
     
   </entry>
   
